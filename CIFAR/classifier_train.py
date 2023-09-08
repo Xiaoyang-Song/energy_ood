@@ -41,9 +41,10 @@ os.makedirs(log_dir, exist_ok=True)
 # CIFAR10 pre training
 model = DenseNet3(depth=100, num_classes=10, input_channel=3).to(DEVICE)
 lr = 1e-1
-optimizer = torch.optim.Adam(model.parameters(), lr=lr, betas=(0.9, 0.999))
+optimizer = torch.optim.Adam(
+    model.parameters(), lr=lr, betas=(0.9, 0.999), weight_decay=1e-4)
 # CIFAR10-SVHN
-dset = DSET("CIFAR10-SVHN", False, 128, 128, None, None)
+dset = DSET("CIFAR10-SVHN", False, 64, 128, None, None)
 # MNIST
 # dset = DSET("MNIST", True, 50, 256, [2, 3, 6, 8, 9], [1, 7])
 # SVHN
@@ -62,8 +63,9 @@ iter_count_train = 0
 iter_count_val = 0
 for epoch in tqdm(range(max_epoch)):
     if epoch == 150 or epoch == 225:
+        print("Optimizer Updated!")
         optimizer = torch.optim.Adam(
-            model.parameters(), lr=lr * 0.1, betas=(0.9, 0.999))
+            model.parameters(), lr=lr * 0.1, betas=(0.9, 0.999), weight_decay=1e-4)
     # Training
     model.train()
     train_loss, train_acc, wass = [], [], []
