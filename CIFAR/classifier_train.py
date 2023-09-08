@@ -14,6 +14,8 @@ parser = argparse.ArgumentParser(description='Classifier Training Scripts',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 # Setup
 parser.add_argument('--dataset', type=str, default='CIFAR10-SVHN')
+parser.add_argument('--max_epochs', type=int, default=300)
+
 args = parser.parse_args()
 print(args)
 
@@ -100,7 +102,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=1e-1,
 
 ind_tri_loader = data.ind_train_loader
 ind_val_loader = data.ind_val_loader
-max_epoch = 300
+max_epoch = args.max_epochs
 
 
 criterion = nn.CrossEntropyLoss()
