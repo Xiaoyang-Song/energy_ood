@@ -7,6 +7,7 @@ import time
 import yaml
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(torch.cuda.get_device_name(0))
 
 
 def test_backbone_D(model, val_loader):
@@ -38,7 +39,7 @@ os.makedirs(log_dir, exist_ok=True)
 # model = DenseNet3(depth=100, num_classes=8, num_channels=1).to(DEVICE)
 
 # CIFAR10 pre training
-model = DenseNet3(depth=100, num_classes=10, num_channels=3).to(DEVICE)
+model = DenseNet3(depth=100, num_classes=10, input_channel=3).to(DEVICE)
 lr = 1e-1
 optimizer = torch.optim.Adam(model.parameters(), lr=lr, betas=(0.9, 0.999))
 # CIFAR10-SVHN
