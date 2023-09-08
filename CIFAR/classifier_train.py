@@ -10,6 +10,21 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.get_device_name(0))
 
 
+def adjust_opt(optAlg, optimizer, epoch):
+    if optAlg == 'sgd':
+        if epoch < 150:
+            lr = 1e-1
+        elif epoch == 150:
+            lr = 1e-2
+        elif epoch == 225:
+            lr = 1e-3
+        else:
+            return
+
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+
+
 def test_backbone_D(model, val_loader):
     with torch.no_grad():
         criterion = nn.CrossEntropyLoss()
@@ -41,10 +56,12 @@ os.makedirs(log_dir, exist_ok=True)
 # CIFAR10 pre training
 model = DenseNet3(depth=100, num_classes=10, input_channel=3).to(DEVICE)
 lr = 1e-1
-optimizer = torch.optim.Adam(
-    model.parameters(), lr=lr, betas=(0.9, 0.999), weight_decay=1e-4)
+# optimizer = torch.optim.Adam(
+#     model.parameters(), lr=lr, betas=(0.9, 0.999), weight_decay=1e-4)
+optimizer = torch.optim.SGD(model.parameters(), lr=1e-1,
+                            momentum=0.9, weight_decay=1e-4)
 # CIFAR10-SVHN
-dset = DSET("CIFAR10-SVHN", False, 64, 128, None, None)
+dset = DSET("CIFAR10-SVHN", False, 128, 128, None, None)
 # MNIST
 # dset = DSET("MNIST", True, 50, 256, [2, 3, 6, 8, 9], [1, 7])
 # SVHN
@@ -62,10 +79,7 @@ criterion = nn.CrossEntropyLoss()
 iter_count_train = 0
 iter_count_val = 0
 for epoch in tqdm(range(max_epoch)):
-    if epoch == 150 or epoch == 225:
-        print("Optimizer Updated!")
-        optimizer = torch.optim.Adam(
-            model.parameters(), lr=lr * 0.1, betas=(0.9, 0.999), weight_decay=1e-4)
+    adjust_opt('sgd', optimizer, epoch)
     # Training
     model.train()
     train_loss, train_acc, wass = [], [], []
