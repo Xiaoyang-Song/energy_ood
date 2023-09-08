@@ -15,6 +15,7 @@ parser = argparse.ArgumentParser(description='Classifier Training Scripts',
 # Setup
 parser.add_argument('--dataset', type=str, default='CIFAR10-SVHN')
 parser.add_argument('--max_epochs', type=int, default=300)
+parser.add_argument('--lr', type=float, default=0.1)
 
 args = parser.parse_args()
 print(args)
