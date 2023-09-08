@@ -117,26 +117,31 @@ net = DenseNet3(100, num_classes, 12, reduction=0.5,
 start_epoch = 0
 
 # Restore model
-if args.load != '':
-    for i in range(1000 - 1, -1, -1):
-        if 'pretrained' in args.method_name:
-            subdir = 'pretrained'
-        elif 'oe_tune' in args.method_name:
-            subdir = 'oe_tune'
-        elif 'energy_ft' in args.method_name:
-            subdir = 'energy_ft'
-        else:
-            subdir = 'oe_scratch'
+model_name = os.path.join(os.path.join(
+    args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
+if os.path.isfile(model_name):
+    net.load_state_dict(torch.load(model_name))
+    print('Model restored!')
+# if args.load != '':
+#     for i in range(1000 - 1, -1, -1):
+#         if 'pretrained' in args.method_name:
+#             subdir = 'pretrained'
+#         elif 'oe_tune' in args.method_name:
+#             subdir = 'oe_tune'
+#         elif 'energy_ft' in args.method_name:
+#             subdir = 'energy_ft'
+#         else:
+#             subdir = 'oe_scratch'
 
-        model_name = os.path.join(os.path.join(
-            args.load, subdir), args.method_name + '_epoch_' + str(i) + '.pt')
-        if os.path.isfile(model_name):
-            net.load_state_dict(torch.load(model_name))
-            print('Model restored! Epoch:', i)
-            start_epoch = i + 1
-            break
-    if start_epoch == 0:
-        assert False, "could not resume "+model_name
+#         model_name = os.path.join(os.path.join(
+#             args.load, subdir), args.method_name + '_epoch_' + str(i) + '.pt')
+#         if os.path.isfile(model_name):
+#             net.load_state_dict(torch.load(model_name))
+#             print('Model restored! Epoch:', i)
+#             start_epoch = i + 1
+#             break
+#     if start_epoch == 0:
+#         assert False, "could not resume "+model_name
 
 net.eval()
 
@@ -214,12 +219,46 @@ elif args.score == 'M':
     from torch.autograd import Variable
     _, right_score, wrong_score = get_ood_scores(test_loader, in_dist=True)
 
-    if 'cifar10_' in args.method_name:
-        train_data = dset.CIFAR10(
-            '../data/cifarpy', train=True, transform=test_transform)
+    if args.dataset == 'CIFAR10-SVHN':
+        # mean and standard deviation of channels of CIFAR-10 images
+        mean = [x / 255 for x in [125.3, 123.0, 113.9]]
+        std = [x / 255 for x in [63.0, 62.1, 66.7]]
+        train_transform = trn.Compose([trn.RandomHorizontalFlip(), trn.RandomCrop(32, padding=4),
+                                       trn.ToTensor(), trn.Normalize(mean, std)])
+        test_transform = trn.Compose(
+            [trn.ToTensor(), trn.Normalize(mean, std)])
+        train_data = dset.CIFAR10('./Dataset/CIFAR-10',
+                                  train=True, transform=train_transform, download=True)
+        test_data = dset.CIFAR10('./Dataset/CIFAR-10',
+                                 train=False, transform=test_transform, download=True)
+        num_classes = 10
+        num_channels = 3
+
+    elif args.dataset == 'MNIST-FashionMNIST':
+        data = DSET(args.dataset, False, 128, 128, None, None)
+        train_data, test_data = data.ind_train, data.ind_val
+        num_classes = 10
+        num_channels = 1
+
+    elif args.dataset == 'SVHN' or args.dataset == 'FashionMNIST':
+        data = DSET(args.dataset, True, 128, 128, [
+                    0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
+        train_data, test_data = data.ind_train, data.ind_val
+        num_classes = 8
+
+        if args.dataset == 'SVHN':
+            num_channels = 3
+        else:
+            num_channels = 1
+
+    elif args.dataset == 'MNIST':
+        data = DSET(args.dataset, True, 128, 128, [2, 3, 6, 8, 9], [1, 7])
+        train_data, test_data = data.ind_train, data.ind_val
+        num_channels = 1
+        num_classes = 5
+
     else:
-        train_data = dset.CIFAR100(
-            '../data/cifarpy', train=True, transform=test_transform)
+        assert False
 
     train_loader = torch.utils.data.DataLoader(train_data, batch_size=args.test_bs, shuffle=False,
                                                num_workers=args.prefetch, pin_memory=True)
@@ -299,228 +338,251 @@ def get_and_print_results(ood_loader, num_to_avg=args.num_to_avg):
 
 
 # /////////////// Textures ///////////////
-ood_data = dset.ImageFolder(root="../data/dtd/images",
-                            transform=trn.Compose([trn.Resize(32), trn.CenterCrop(32),
-                                                   trn.ToTensor(), trn.Normalize(mean, std)]))
-ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
-                                         num_workers=4, pin_memory=True)
-print('\n\nTexture Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// SVHN /////////////// # cropped and no sampling of the test set
-ood_data = svhn.SVHN(root='../data/svhn/', split="test",
-                     transform=trn.Compose(
-                         [  # trn.Resize(32),
-                             trn.ToTensor(), trn.Normalize(mean, std)]), download=False)
-ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
-                                         num_workers=2, pin_memory=True)
-print('\n\nSVHN Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// Places365 ///////////////
-ood_data = dset.ImageFolder(root="../data/places365/",
-                            transform=trn.Compose([trn.Resize(32), trn.CenterCrop(32),
-                                                   trn.ToTensor(), trn.Normalize(mean, std)]))
-ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
-                                         num_workers=2, pin_memory=True)
-print('\n\nPlaces365 Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// LSUN-C ///////////////
-ood_data = dset.ImageFolder(root="../data/LSUN_C",
-                            transform=trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)]))
-ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
-                                         num_workers=1, pin_memory=True)
-print('\n\nLSUN_C Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// LSUN-R ///////////////
-ood_data = dset.ImageFolder(root="../data/LSUN_resize",
-                            transform=trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)]))
-ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
-                                         num_workers=1, pin_memory=True)
-print('\n\nLSUN_Resize Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// iSUN ///////////////
-ood_data = dset.ImageFolder(root="../data/iSUN",
-                            transform=trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)]))
-ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
-                                         num_workers=1, pin_memory=True)
-print('\n\niSUN Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// Mean Results ///////////////
-
-print('\n\nMean Test Results!!!!!')
-print_measures(np.mean(auroc_list), np.mean(aupr_list),
-               np.mean(fpr_list), method_name=args.method_name)
-
-# /////////////// OOD Detection of Validation Distributions ///////////////
-
-if args.validate is False:
-    exit()
-
-auroc_list, aupr_list, fpr_list = [], [], []
-
-# /////////////// Uniform Noise ///////////////
-
-dummy_targets = torch.ones(ood_num_examples * args.num_to_avg)
-ood_data = torch.from_numpy(
-    np.random.uniform(size=(ood_num_examples * args.num_to_avg, 3, 32, 32),
-                      low=-1.0, high=1.0).astype(np.float32))
-ood_data = torch.utils.data.TensorDataset(ood_data, dummy_targets)
-ood_loader = torch.utils.data.DataLoader(
-    ood_data, batch_size=args.test_bs, shuffle=True)
-
-print('\n\nUniform[-1,1] Noise Detection')
-get_and_print_results(ood_loader)
+# ood_data = dset.ImageFolder(root="../data/dtd/images",
+#                             transform=trn.Compose([trn.Resize(32), trn.CenterCrop(32),
+#                                                    trn.ToTensor(), trn.Normalize(mean, std)]))
+# ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=4, pin_memory=True)
+# print('\n\nTexture Detection')
+# get_and_print_results(ood_loader)
 
 
-# /////////////// Arithmetic Mean of Images ///////////////
-
-if 'cifar10_' in args.method_name:
-    ood_data = dset.CIFAR100(
-        '../data/vision-greg/cifarpy', train=False, transform=test_transform)
+if args.dataset == 'CIFAR10-SVHN':
+    ood_data = dset.SVHN('./Datasets/SVHN', split='test', download=True,
+                         transform=trn.Compose(
+                             [  # trn.Resize(32),
+                                trn.ToTensor(), trn.Normalize(mean, std)]))
+    # ood_data = svhn.SVHN(root='./Datasets/SVHN', split="test",
+    #                      transform=trn.Compose(
+    #                          [  # trn.Resize(32),
+    #                              trn.ToTensor(), trn.Normalize(mean, std)]), download=True)
+    ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+                                             num_workers=1, pin_memory=True)
+    print('\n\nSVHN Detection')
+    get_and_print_results(ood_loader)
 else:
-    ood_data = dset.CIFAR10('../data/vision-greg/cifarpy',
-                            train=False, transform=test_transform)
+    print(data.name)
+    ood_data = data.ood_val
+    ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+                                             num_workers=1, pin_memory=True)
+    print(f'\n\n{data.name} Detection')
+    get_and_print_results(ood_loader)
 
 
-class AvgOfPair(torch.utils.data.Dataset):
-    def __init__(self, dataset):
-        self.dataset = dataset
-        self.shuffle_indices = np.arange(len(dataset))
-        np.random.shuffle(self.shuffle_indices)
+# # /////////////// SVHN /////////////// # cropped and no sampling of the test set
+# ood_data = svhn.SVHN(root='../data/svhn/', split="test",
+#                      transform=trn.Compose(
+#                          [  # trn.Resize(32),
+#                              trn.ToTensor(), trn.Normalize(mean, std)]), download=False)
+# ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=2, pin_memory=True)
+# print('\n\nSVHN Detection')
+# get_and_print_results(ood_loader)
 
-    def __getitem__(self, i):
-        random_idx = np.random.choice(len(self.dataset))
-        while random_idx == i:
-            random_idx = np.random.choice(len(self.dataset))
+# # /////////////// Places365 ///////////////
+# ood_data = dset.ImageFolder(root="../data/places365/",
+#                             transform=trn.Compose([trn.Resize(32), trn.CenterCrop(32),
+#                                                    trn.ToTensor(), trn.Normalize(mean, std)]))
+# ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=2, pin_memory=True)
+# print('\n\nPlaces365 Detection')
+# get_and_print_results(ood_loader)
 
-        return self.dataset[i][0] / 2. + self.dataset[random_idx][0] / 2., 0
+# # /////////////// LSUN-C ///////////////
+# ood_data = dset.ImageFolder(root="../data/LSUN_C",
+#                             transform=trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)]))
+# ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=1, pin_memory=True)
+# print('\n\nLSUN_C Detection')
+# get_and_print_results(ood_loader)
 
-    def __len__(self):
-        return len(self.dataset)
+# # /////////////// LSUN-R ///////////////
+# ood_data = dset.ImageFolder(root="../data/LSUN_resize",
+#                             transform=trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)]))
+# ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=1, pin_memory=True)
+# print('\n\nLSUN_Resize Detection')
+# get_and_print_results(ood_loader)
 
+# # /////////////// iSUN ///////////////
+# ood_data = dset.ImageFolder(root="../data/iSUN",
+#                             transform=trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)]))
+# ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=1, pin_memory=True)
+# print('\n\niSUN Detection')
+# get_and_print_results(ood_loader)
 
-ood_loader = torch.utils.data.DataLoader(AvgOfPair(ood_data),
-                                         batch_size=args.test_bs, shuffle=True,
-                                         num_workers=args.prefetch, pin_memory=True)
+# # /////////////// Mean Results ///////////////
 
-print('\n\nArithmetic Mean of Random Image Pair Detection')
-get_and_print_results(ood_loader)
+# print('\n\nMean Test Results!!!!!')
+# print_measures(np.mean(auroc_list), np.mean(aupr_list),
+#                np.mean(fpr_list), method_name=args.method_name)
 
+# # /////////////// OOD Detection of Validation Distributions ///////////////
 
-# /////////////// Geometric Mean of Images ///////////////
+# if args.validate is False:
+#     exit()
 
-if 'cifar10_' in args.method_name:
-    ood_data = dset.CIFAR100(
-        '../data/vision-greg/cifarpy', train=False, transform=trn.ToTensor())
-else:
-    ood_data = dset.CIFAR10('../data/vision-greg/cifarpy',
-                            train=False, transform=trn.ToTensor())
+# auroc_list, aupr_list, fpr_list = [], [], []
 
+# # /////////////// Uniform Noise ///////////////
 
-class GeomMeanOfPair(torch.utils.data.Dataset):
-    def __init__(self, dataset):
-        self.dataset = dataset
-        self.shuffle_indices = np.arange(len(dataset))
-        np.random.shuffle(self.shuffle_indices)
+# dummy_targets = torch.ones(ood_num_examples * args.num_to_avg)
+# ood_data = torch.from_numpy(
+#     np.random.uniform(size=(ood_num_examples * args.num_to_avg, 3, 32, 32),
+#                       low=-1.0, high=1.0).astype(np.float32))
+# ood_data = torch.utils.data.TensorDataset(ood_data, dummy_targets)
+# ood_loader = torch.utils.data.DataLoader(
+#     ood_data, batch_size=args.test_bs, shuffle=True)
 
-    def __getitem__(self, i):
-        random_idx = np.random.choice(len(self.dataset))
-        while random_idx == i:
-            random_idx = np.random.choice(len(self.dataset))
-
-        return trn.Normalize(mean, std)(torch.sqrt(self.dataset[i][0] * self.dataset[random_idx][0])), 0
-
-    def __len__(self):
-        return len(self.dataset)
-
-
-ood_loader = torch.utils.data.DataLoader(
-    GeomMeanOfPair(ood_data), batch_size=args.test_bs, shuffle=True,
-    num_workers=args.prefetch, pin_memory=True)
-
-print('\n\nGeometric Mean of Random Image Pair Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// Jigsaw Images ///////////////
-
-ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
-                                         num_workers=args.prefetch, pin_memory=True)
-
-
-def jigsaw(x): return torch.cat((
-    torch.cat((torch.cat((x[:, 8:16, :16], x[:, :8, :16]), 1),
-               x[:, 16:, :16]), 2),
-    torch.cat((x[:, 16:, 16:],
-               torch.cat((x[:, :16, 24:], x[:, :16, 16:24]), 2)), 2),
-), 1)
+# print('\n\nUniform[-1,1] Noise Detection')
+# get_and_print_results(ood_loader)
 
 
-ood_loader.dataset.transform = trn.Compose(
-    [trn.ToTensor(), jigsaw, trn.Normalize(mean, std)])
+# # /////////////// Arithmetic Mean of Images ///////////////
 
-print('\n\nJigsawed Images Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// Speckled Images ///////////////
-
-
-def speckle(x): return torch.clamp(x + x * torch.randn_like(x), 0, 1)
+# if 'cifar10_' in args.method_name:
+#     ood_data = dset.CIFAR100(
+#         '../data/vision-greg/cifarpy', train=False, transform=test_transform)
+# else:
+#     ood_data = dset.CIFAR10('../data/vision-greg/cifarpy',
+#                             train=False, transform=test_transform)
 
 
-ood_loader.dataset.transform = trn.Compose(
-    [trn.ToTensor(), speckle, trn.Normalize(mean, std)])
+# class AvgOfPair(torch.utils.data.Dataset):
+#     def __init__(self, dataset):
+#         self.dataset = dataset
+#         self.shuffle_indices = np.arange(len(dataset))
+#         np.random.shuffle(self.shuffle_indices)
 
-print('\n\nSpeckle Noised Images Detection')
-get_and_print_results(ood_loader)
+#     def __getitem__(self, i):
+#         random_idx = np.random.choice(len(self.dataset))
+#         while random_idx == i:
+#             random_idx = np.random.choice(len(self.dataset))
 
-# /////////////// Pixelated Images ///////////////
+#         return self.dataset[i][0] / 2. + self.dataset[random_idx][0] / 2., 0
 
-
-def pixelate(x): return x.resize((int(32 * 0.2), int(32 * 0.2)),
-                                 PILImage.BOX).resize((32, 32), PILImage.BOX)
-
-
-ood_loader.dataset.transform = trn.Compose(
-    [pixelate, trn.ToTensor(), trn.Normalize(mean, std)])
-
-print('\n\nPixelate Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// RGB Ghosted/Shifted Images ///////////////
+#     def __len__(self):
+#         return len(self.dataset)
 
 
-def rgb_shift(x): return torch.cat((x[1:2].index_select(2, torch.LongTensor([i for i in range(32 - 1, -1, -1)])),
-                                    x[2:, :, :], x[0:1, :, :]), 0)
+# ood_loader = torch.utils.data.DataLoader(AvgOfPair(ood_data),
+#                                          batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=args.prefetch, pin_memory=True)
+
+# print('\n\nArithmetic Mean of Random Image Pair Detection')
+# get_and_print_results(ood_loader)
 
 
-ood_loader.dataset.transform = trn.Compose(
-    [trn.ToTensor(), rgb_shift, trn.Normalize(mean, std)])
+# # /////////////// Geometric Mean of Images ///////////////
 
-print('\n\nRGB Ghosted/Shifted Image Detection')
-get_and_print_results(ood_loader)
-
-# /////////////// Inverted Images ///////////////
-
-# not done on all channels to make image ood with higher probability
-
-
-def invert(x): return torch.cat(
-    (x[0:1, :, :], 1 - x[1:2, :, ], 1 - x[2:, :, :],), 0)
+# if 'cifar10_' in args.method_name:
+#     ood_data = dset.CIFAR100(
+#         '../data/vision-greg/cifarpy', train=False, transform=trn.ToTensor())
+# else:
+#     ood_data = dset.CIFAR10('../data/vision-greg/cifarpy',
+#                             train=False, transform=trn.ToTensor())
 
 
-ood_loader.dataset.transform = trn.Compose(
-    [trn.ToTensor(), invert, trn.Normalize(mean, std)])
+# class GeomMeanOfPair(torch.utils.data.Dataset):
+#     def __init__(self, dataset):
+#         self.dataset = dataset
+#         self.shuffle_indices = np.arange(len(dataset))
+#         np.random.shuffle(self.shuffle_indices)
 
-print('\n\nInverted Image Detection')
-get_and_print_results(ood_loader)
+#     def __getitem__(self, i):
+#         random_idx = np.random.choice(len(self.dataset))
+#         while random_idx == i:
+#             random_idx = np.random.choice(len(self.dataset))
 
-# /////////////// Mean Results ///////////////
+#         return trn.Normalize(mean, std)(torch.sqrt(self.dataset[i][0] * self.dataset[random_idx][0])), 0
 
-print('\n\nMean Validation Results')
-print_measures(np.mean(auroc_list), np.mean(aupr_list),
-               np.mean(fpr_list), method_name=args.method_name)
+#     def __len__(self):
+#         return len(self.dataset)
+
+
+# ood_loader = torch.utils.data.DataLoader(
+#     GeomMeanOfPair(ood_data), batch_size=args.test_bs, shuffle=True,
+#     num_workers=args.prefetch, pin_memory=True)
+
+# print('\n\nGeometric Mean of Random Image Pair Detection')
+# get_and_print_results(ood_loader)
+
+# # /////////////// Jigsaw Images ///////////////
+
+# ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
+#                                          num_workers=args.prefetch, pin_memory=True)
+
+
+# def jigsaw(x): return torch.cat((
+#     torch.cat((torch.cat((x[:, 8:16, :16], x[:, :8, :16]), 1),
+#                x[:, 16:, :16]), 2),
+#     torch.cat((x[:, 16:, 16:],
+#                torch.cat((x[:, :16, 24:], x[:, :16, 16:24]), 2)), 2),
+# ), 1)
+
+
+# ood_loader.dataset.transform = trn.Compose(
+#     [trn.ToTensor(), jigsaw, trn.Normalize(mean, std)])
+
+# print('\n\nJigsawed Images Detection')
+# get_and_print_results(ood_loader)
+
+# # /////////////// Speckled Images ///////////////
+
+
+# def speckle(x): return torch.clamp(x + x * torch.randn_like(x), 0, 1)
+
+
+# ood_loader.dataset.transform = trn.Compose(
+#     [trn.ToTensor(), speckle, trn.Normalize(mean, std)])
+
+# print('\n\nSpeckle Noised Images Detection')
+# get_and_print_results(ood_loader)
+
+# # /////////////// Pixelated Images ///////////////
+
+
+# def pixelate(x): return x.resize((int(32 * 0.2), int(32 * 0.2)),
+#                                  PILImage.BOX).resize((32, 32), PILImage.BOX)
+
+
+# ood_loader.dataset.transform = trn.Compose(
+#     [pixelate, trn.ToTensor(), trn.Normalize(mean, std)])
+
+# print('\n\nPixelate Detection')
+# get_and_print_results(ood_loader)
+
+# # /////////////// RGB Ghosted/Shifted Images ///////////////
+
+
+# def rgb_shift(x): return torch.cat((x[1:2].index_select(2, torch.LongTensor([i for i in range(32 - 1, -1, -1)])),
+#                                     x[2:, :, :], x[0:1, :, :]), 0)
+
+
+# ood_loader.dataset.transform = trn.Compose(
+#     [trn.ToTensor(), rgb_shift, trn.Normalize(mean, std)])
+
+# print('\n\nRGB Ghosted/Shifted Image Detection')
+# get_and_print_results(ood_loader)
+
+# # /////////////// Inverted Images ///////////////
+
+# # not done on all channels to make image ood with higher probability
+
+
+# def invert(x): return torch.cat(
+#     (x[0:1, :, :], 1 - x[1:2, :, ], 1 - x[2:, :, :],), 0)
+
+
+# ood_loader.dataset.transform = trn.Compose(
+#     [trn.ToTensor(), invert, trn.Normalize(mean, std)])
+
+# print('\n\nInverted Image Detection')
+# get_and_print_results(ood_loader)
+
+# # /////////////// Mean Results ///////////////
+
+# print('\n\nMean Validation Results')
+# print_measures(np.mean(auroc_list), np.mean(aupr_list),
+#                np.mean(fpr_list), method_name=args.method_name)
