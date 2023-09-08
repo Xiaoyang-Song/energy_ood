@@ -12,6 +12,7 @@ import torchvision.datasets as dset
 import torch.nn.functional as F
 from tqdm import tqdm
 from models.wrn import WideResNet
+from models.densenet import *
 
 if __package__ is None:
     import sys
@@ -30,29 +31,43 @@ parser.add_argument('--model', '-m', type=str, default='allconv',
 parser.add_argument('--calibration', '-c', action='store_true',
                     help='Train a model to be used for calibration. This holds out some data for validation.')
 # Optimization options
-parser.add_argument('--epochs', '-e', type=int, default=10, help='Number of epochs to train.')
-parser.add_argument('--learning_rate', '-lr', type=float, default=0.001, help='The initial learning rate.')
-parser.add_argument('--batch_size', '-b', type=int, default=128, help='Batch size.')
-parser.add_argument('--oe_batch_size', type=int, default=256, help='Batch size.')
+parser.add_argument('--epochs', '-e', type=int, default=10,
+                    help='Number of epochs to train.')
+parser.add_argument('--learning_rate', '-lr', type=float,
+                    default=0.001, help='The initial learning rate.')
+parser.add_argument('--batch_size', '-b', type=int,
+                    default=128, help='Batch size.')
+parser.add_argument('--oe_batch_size', type=int,
+                    default=256, help='Batch size.')
 parser.add_argument('--test_bs', type=int, default=200)
 parser.add_argument('--momentum', type=float, default=0.9, help='Momentum.')
-parser.add_argument('--decay', '-d', type=float, default=0.0005, help='Weight decay (L2 penalty).')
+parser.add_argument('--decay', '-d', type=float,
+                    default=0.0005, help='Weight decay (L2 penalty).')
 # WRN Architecture
-parser.add_argument('--layers', default=40, type=int, help='total number of layers')
+parser.add_argument('--layers', default=40, type=int,
+                    help='total number of layers')
 parser.add_argument('--widen-factor', default=2, type=int, help='widen factor')
-parser.add_argument('--droprate', default=0.3, type=float, help='dropout probability')
+parser.add_argument('--droprate', default=0.3, type=float,
+                    help='dropout probability')
 # Checkpoints
-parser.add_argument('--save', '-s', type=str, default='./snapshots/', help='Folder to save checkpoints.')
-parser.add_argument('--load', '-l', type=str, default='./snapshots/pretrained', help='Checkpoint path to resume / test.')
-parser.add_argument('--test', '-t', action='store_true', help='Test only flag.')
+parser.add_argument('--save', '-s', type=str,
+                    default='./snapshots/', help='Folder to save checkpoints.')
+parser.add_argument('--load', '-l', type=str, default='./snapshots/pretrained',
+                    help='Checkpoint path to resume / test.')
+parser.add_argument('--test', '-t', action='store_true',
+                    help='Test only flag.')
 # Acceleration
 parser.add_argument('--ngpu', type=int, default=1, help='0 = CPU.')
-parser.add_argument('--prefetch', type=int, default=4, help='Pre-fetching threads.')
+parser.add_argument('--prefetch', type=int, default=4,
+                    help='Pre-fetching threads.')
 # EG specific
-parser.add_argument('--m_in', type=float, default=-25., help='margin for in-distribution; above this value will be penalized')
-parser.add_argument('--m_out', type=float, default=-7., help='margin for out-distribution; below this value will be penalized')
+parser.add_argument('--m_in', type=float, default=-25.,
+                    help='margin for in-distribution; above this value will be penalized')
+parser.add_argument('--m_out', type=float, default=-7.,
+                    help='margin for out-distribution; below this value will be penalized')
 parser.add_argument('--score', type=str, default='OE', help='OE|energy')
-parser.add_argument('--seed', type=int, default=1, help='seed for np(tinyimages80M sampling); 1|2|8|100|107')
+parser.add_argument('--seed', type=int, default=1,
+                    help='seed for np(tinyimages80M sampling); 1|2|8|100|107')
 args = parser.parse_args()
 
 
@@ -79,12 +94,16 @@ train_transform = trn.Compose([trn.RandomHorizontalFlip(), trn.RandomCrop(32, pa
 test_transform = trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)])
 
 if args.dataset == 'cifar10':
-    train_data_in = dset.CIFAR10('../data/cifarpy', train=True, transform=train_transform)
-    test_data = dset.CIFAR10('../data/cifarpy', train=False, transform=test_transform)
+    train_data_in = dset.CIFAR10(
+        '../data/cifarpy', train=True, transform=train_transform)
+    test_data = dset.CIFAR10(
+        '../data/cifarpy', train=False, transform=test_transform)
     num_classes = 10
 else:
-    train_data_in = dset.CIFAR100('../data/cifarpy', train=True, transform=train_transform)
-    test_data = dset.CIFAR100('../data/cifarpy', train=False, transform=test_transform)
+    train_data_in = dset.CIFAR100(
+        '../data/cifarpy', train=True, transform=train_transform)
+    test_data = dset.CIFAR100(
+        '../data/cifarpy', train=False, transform=test_transform)
     num_classes = 100
 
 
@@ -114,7 +133,9 @@ test_loader = torch.utils.data.DataLoader(
     num_workers=args.prefetch, pin_memory=True)
 
 # Create model
-net = WideResNet(args.layers, num_classes, args.widen_factor, dropRate=args.droprate)
+net = WideResNet(args.layers, num_classes,
+                 args.widen_factor, dropRate=args.droprate)
+
 
 def recursion_change_bn(module):
     if isinstance(module, torch.nn.BatchNorm2d):
@@ -124,11 +145,13 @@ def recursion_change_bn(module):
         for i, (name, module1) in enumerate(module._modules.items()):
             module1 = recursion_change_bn(module1)
     return module
+
+
 # Restore model
 model_found = False
 if args.load != '':
     for i in range(1000 - 1, -1, -1):
-        
+
         model_name = os.path.join(args.load, args.dataset + calib_indicator + '_' + args.model +
                                   '_pretrained_epoch_' + str(i) + '.pt')
         if os.path.isfile(model_name):
@@ -155,7 +178,7 @@ optimizer = torch.optim.SGD(
 
 def cosine_annealing(step, total_steps, lr_max, lr_min):
     return lr_min + (lr_max - lr_min) * 0.5 * (
-            1 + np.cos(step / total_steps * np.pi))
+        1 + np.cos(step / total_steps * np.pi))
 
 
 scheduler = torch.optim.lr_scheduler.LambdaLR(
@@ -174,7 +197,8 @@ def train():
     loss_avg = 0.0
 
     # start at a random point of the outlier dataset; this induces more randomness without obliterating locality
-    train_loader_out.dataset.offset = np.random.randint(len(train_loader_out.dataset))
+    train_loader_out.dataset.offset = np.random.randint(
+        len(train_loader_out.dataset))
     for in_set, out_set in zip(train_loader_in, train_loader_out):
         data = torch.cat((in_set[0], out_set[0]), 0)
         target = in_set[1]
@@ -193,9 +217,11 @@ def train():
         if args.score == 'energy':
             Ec_out = -torch.logsumexp(x[len(in_set[0]):], dim=1)
             Ec_in = -torch.logsumexp(x[:len(in_set[0])], dim=1)
-            loss += 0.1*(torch.pow(F.relu(Ec_in-args.m_in), 2).mean() + torch.pow(F.relu(args.m_out-Ec_out), 2).mean())
+            loss += 0.1*(torch.pow(F.relu(Ec_in-args.m_in), 2).mean() +
+                         torch.pow(F.relu(args.m_out-Ec_out), 2).mean())
         elif args.score == 'OE':
-            loss += 0.5 * -(x[len(in_set[0]):].mean(1) - torch.logsumexp(x[len(in_set[0]):], dim=1)).mean()
+            loss += 0.5 * -(x[len(in_set[0]):].mean(1) -
+                            torch.logsumexp(x[len(in_set[0]):], dim=1)).mean()
 
         loss.backward()
         optimizer.step()
@@ -241,7 +267,7 @@ if not os.path.isdir(args.save):
     raise Exception('%s is not a dir' % args.save)
 
 with open(os.path.join(args.save, args.dataset + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
-                                  '_' + save_info+'_training_results.csv'), 'w') as f:
+                       '_' + save_info+'_training_results.csv'), 'w') as f:
     f.write('epoch,time(s),train_loss,test_loss,test_error(%)\n')
 
 print('Beginning Training\n')
@@ -254,20 +280,21 @@ for epoch in range(0, args.epochs):
 
     train()
     test()
- 
+
     # Save model
     torch.save(net.state_dict(),
                os.path.join(args.save, args.dataset + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
                             '_' + save_info + '_epoch_' + str(epoch) + '.pt'))
-    
-               # Let us not waste space and delete the previous model
+
+    # Let us not waste space and delete the previous model
     prev_path = os.path.join(args.save, args.dataset + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
-                             '_' + save_info + '_epoch_'+ str(epoch - 1) + '.pt')
-    if os.path.exists(prev_path): os.remove(prev_path)
+                             '_' + save_info + '_epoch_' + str(epoch - 1) + '.pt')
+    if os.path.exists(prev_path):
+        os.remove(prev_path)
 
     # Show results
     with open(os.path.join(args.save, args.dataset + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
-                                      '_' + save_info + '_training_results.csv'), 'a') as f:
+                           '_' + save_info + '_training_results.csv'), 'a') as f:
         f.write('%03d,%05d,%0.6f,%0.5f,%0.2f\n' % (
             (epoch + 1),
             time.time() - begin_epoch,
