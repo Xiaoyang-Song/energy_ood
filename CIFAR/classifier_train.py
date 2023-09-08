@@ -10,6 +10,14 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.get_device_name(0))
 
 
+parser = argparse.ArgumentParser(description='Classifier Training Scripts',
+                                 formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+# Setup
+parser.add_argument('--dataset', type=str, default='CIFAR10-SVHN')
+args = parser.parse_args()
+print(args)
+
+
 def adjust_opt(optAlg, optimizer, epoch):
     if optAlg == 'sgd':
         if epoch < 150:
@@ -48,29 +56,50 @@ def test_backbone_D(model, val_loader):
 
 log_dir = "./snapshots/pretrained/"
 os.makedirs(log_dir, exist_ok=True)
-# model = DenseNet3(depth=100, num_classes=8, input_channel=3).to(DEVICE)
-# img_info = {'H': 28, 'W': 28, 'C': 1}
-# model = DC_D(10, img_info).to(DEVICE)
-# model = DenseNet3(depth=100, num_classes=8, num_channels=1).to(DEVICE)
+
+if args.dataset == 'CIFAR10-SVHN':
+    data = DSET(args.dataset, False, 64, 128, None, None)
+    train_data, test_data = data.ind_train, data.ind_val
+    num_classes = 10
+    num_channels = 3
+
+elif args.dataset == 'MNIST-FashionMNIST':
+    data = DSET(args.dataset, False, 128, 128, None, None)
+    train_data, test_data = data.ind_train, data.ind_val
+    num_classes = 10
+    num_channels = 1
+
+elif args.dataset == 'SVHN' or args.dataset == 'FashionMNIST':
+    data = DSET(args.dataset, True, 128, 128, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
+    train_data, test_data = data.ind_train, data.ind_val
+    num_classes = 8
+
+    if args.dataset == 'SVHN':
+        num_channels = 3
+    else:
+        num_channels = 1
+
+elif args.dataset == 'MNIST':
+    data = DSET(args.dataset, True, 128, 128, [2, 3, 6, 8, 9], [1, 7])
+    train_data, test_data = data.ind_train, data.ind_val
+    num_channels = 1
+    num_classes = 5
+else:
+    assert False
+
 
 # CIFAR10 pre training
-model = DenseNet3(depth=100, num_classes=10, input_channel=3).to(DEVICE)
+model = DenseNet3(depth=100, num_classes=num_classes,
+                  input_channel=num_channels).to(DEVICE)
 lr = 1e-1
 # optimizer = torch.optim.Adam(
 #     model.parameters(), lr=lr, betas=(0.9, 0.999), weight_decay=1e-4)
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-1,
                             momentum=0.9, weight_decay=1e-4)
-# CIFAR10-SVHN
-dset = DSET("CIFAR10-SVHN", False, 128, 128, None, None)
-# MNIST
-# dset = DSET("MNIST", True, 50, 256, [2, 3, 6, 8, 9], [1, 7])
-# SVHN
-# dset = DSET("SVHN", True, 50, 64, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
-# dset = DSET("FashionMNIST", True, 50, 64, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
-# dset = DSET("MNIST-FashionMNIST", False, 256, 256, None, None)
 
-ind_tri_loader = dset.ind_train_loader
-ind_val_loader = dset.ind_val_loader
+
+ind_tri_loader = data.ind_train_loader
+ind_val_loader = data.ind_val_loader
 max_epoch = 300
 
 
