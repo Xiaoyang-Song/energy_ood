@@ -171,11 +171,42 @@ test_loader = torch.utils.data.DataLoader(
     test_data,
     batch_size=args.batch_size, shuffle=False,
     num_workers=args.prefetch, pin_memory=True)
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(torch.cuda.get_device_name(0))
+
+
+def test_backbone_D_V1(model, val_loader):
+    with torch.no_grad():
+        criterion = nn.CrossEntropyLoss()
+        val_loss, val_acc, total_acc = [], [], []
+        for idx, (img, label) in enumerate(tqdm(val_loader)):
+            img, label = img.to(DEVICE), label.to(DEVICE)
+            logits = model(img)
+            loss = criterion(logits, label)
+            num_correct, num_total = (torch.argmax(logits, dim=1) ==
+                                      label).sum().item(), label.shape[0]
+            acc = num_correct / num_total
+            # print(acc)
+            val_acc.append(acc)
+            total_acc.append([num_correct, num_total])
+            val_loss.append(loss.detach().item())
+        print(np.mean(val_acc))
+        print(np.mean(val_loss))
+        total_acc = np.array(total_acc)
+        print(np.sum(total_acc[:, 0] / np.sum(total_acc[:, 1])))
+
 
 # Create model
 net = DenseNet3(100, num_classes, 12, reduction=0.5,
                 bottleneck=True, dropRate=0.0, input_channel=num_channels)
 print('Model Restored!')
+
+with torch.no_grad():
+    # Evaluation
+    # torch.save(model.state_dict(),
+    #            log_dir + f'[{data.name}]-pretrained-classifier.pt')
+    # ic("Model Checkpoint Saved!")
+    test_backbone_D_V1(net, data.ind_val_loader)
 
 
 def recursion_change_bn(module):

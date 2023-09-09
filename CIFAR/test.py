@@ -66,6 +66,8 @@ print(args)
 # np.random.seed(1)
 
 
+
+
 if args.dataset == 'CIFAR10-SVHN':
     # mean and standard deviation of channels of CIFAR-10 images
     mean = [x / 255 for x in [125.3, 123.0, 113.9]]
