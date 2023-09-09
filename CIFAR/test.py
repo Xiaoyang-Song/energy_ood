@@ -50,7 +50,7 @@ parser.add_argument('--droprate', default=0.3, type=float,
 parser.add_argument('--load', '-l', type=str, default='./snapshots',
                     help='Checkpoint path to resume / test.')
 parser.add_argument('--ngpu', type=int, default=1, help='0 = CPU.')
-parser.add_argument('--prefetch', type=int, default=2,
+parser.add_argument('--prefetch', type=int, default=1,
                     help='Pre-fetching threads.')
 # EG and benchmark details
 parser.add_argument('--out_as_pos', action='store_true',
@@ -171,8 +171,8 @@ def get_ood_scores(loader, in_dist=False):
 
     with torch.no_grad():
         for batch_idx, (data, target) in enumerate(loader):
-            if batch_idx >= ood_num_examples // args.test_bs and in_dist is False:
-                break
+            # if batch_idx >= ood_num_examples // args.test_bs and in_dist is False:
+            #     break
 
             data = data.cuda()
 
