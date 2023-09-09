@@ -26,7 +26,7 @@ if __package__ is None:
 
 parser = argparse.ArgumentParser(description='Tunes a CIFAR Classifier with OE',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('dataset', type=str,
+parser.add_argument('--dataset', type=str,
                     help='Choose between CIFAR-10, CIFAR-100.')
 parser.add_argument('--model', '-m', type=str, default='densenet',
                     choices=['allconv', 'wrn', 'densenet'], help='Choose architecture.')
@@ -148,6 +148,7 @@ if args.calibration:
 #     [trn.ToTensor(), trn.ToPILImage(), trn.RandomCrop(32, padding=4),
 #      trn.RandomHorizontalFlip(), trn.ToTensor(), trn.Normalize(mean, std)]))
 
+# Fetch OoD data from existing repository
 fname = f"~/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.dataset}/OOD-{args.regime}-{args.n_ood}.pt"
 ood_data, _ = torch.load(fname)
 ic(ood_data.shape)
