@@ -66,8 +66,6 @@ print(args)
 # np.random.seed(1)
 
 
-
-
 if args.dataset == 'CIFAR10-SVHN':
     # mean and standard deviation of channels of CIFAR-10 images
     mean = [x / 255 for x in [125.3, 123.0, 113.9]]
@@ -119,8 +117,13 @@ net = DenseNet3(100, num_classes, 12, reduction=0.5,
 start_epoch = 0
 
 # Restore model
-model_name = os.path.join(os.path.join(
-    args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
+
+#
+# model_name = os.path.join(os.path.join(
+#     args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
+
+model_name = './snapshots/energy_ft/FashionMNIST_densenet_s1_energy_ft_epoch_9.pt'
+
 if os.path.isfile(model_name):
     net.load_state_dict(torch.load(model_name))
     print('Model restored!')
