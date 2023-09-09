@@ -122,7 +122,7 @@ start_epoch = 0
 # model_name = os.path.join(os.path.join(
 #     args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
 
-model_name = './snapshots/energy_ft/FashionMNIST_densenet_s1_energy_ft_epoch_9.pt'
+model_name = './snapshots/energy_ft/FashionMNIST_densenet_s1_energy_ft_epoch_99.pt'
 
 if os.path.isfile(model_name):
     net.load_state_dict(torch.load(model_name))
