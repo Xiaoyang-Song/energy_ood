@@ -300,7 +300,7 @@ print('\n\nError Detection')
 show_performance(wrong_score, right_score, method_name=args.method_name)
 
 # /////////////// OOD Detection ///////////////
-auroc_list, aupr_list, fpr_list_95, fpr_list_99 = [], [], []
+auroc_list, aupr_list, fpr_list_95, fpr_list_99 = [], [], [], []
 
 
 def get_and_print_results(ood_loader, num_to_avg=args.num_to_avg):
