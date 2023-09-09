@@ -195,7 +195,7 @@ def test_backbone_D_V1(model, val_loader):
         total_acc = np.array(total_acc)
         print(np.sum(total_acc[:, 0] / np.sum(total_acc[:, 1])))
 
-s
+
 # Create model
 net = DenseNet3(100, num_classes, 12, reduction=0.5,
                 bottleneck=True, dropRate=0.0, input_channel=num_channels).to(DEVICE)
