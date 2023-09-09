@@ -17,17 +17,20 @@ parser.add_argument('--dataset', type=str, default='CIFAR10-SVHN')
 parser.add_argument('--max_epochs', type=int, default=300)
 parser.add_argument('--lr', type=float, default=0.1)
 
+parser.add_argument('--opt', type=str, default='sgd')
+
+
 args = parser.parse_args()
 print(args)
 
 
-def adjust_opt(optAlg, optimizer, epoch):
+def adjust_opt(optAlg, optimizer, epoch, max_epoch):
     if optAlg == 'sgd':
-        if epoch < 150:
+        if epoch < max_epoch * 0.5:
             lr = 1e-1
-        elif epoch == 150:
+        elif epoch == max_epoch * 0.5:
             lr = 1e-2
-        elif epoch == 225:
+        elif epoch == max_epoch * 0.75:
             lr = 1e-3
         else:
             return
@@ -59,6 +62,7 @@ def test_backbone_D(model, val_loader):
 
 log_dir = "./snapshots/pretrained/"
 os.makedirs(log_dir, exist_ok=True)
+
 
 if args.dataset == 'CIFAR10-SVHN':
     data = DSET(args.dataset, False, 64, 128, None, None)
@@ -95,11 +99,20 @@ else:
 model = DenseNet3(depth=100, num_classes=num_classes,
                   input_channel=num_channels).to(DEVICE)
 lr = 1e-1
-# optimizer = torch.optim.Adam(
-#     model.parameters(), lr=lr, betas=(0.9, 0.999), weight_decay=1e-4)
-optimizer = torch.optim.SGD(model.parameters(), lr=1e-1,
-                            momentum=0.9, weight_decay=1e-4)
 
+if args.opt == 'adam':
+    optimizer = torch.optim.Adam(
+        model.parameters(), lr=lr, betas=(0.9, 0.999), weight_decay=1e-4)
+elif args.opt == 'sgd':
+    optimizer = torch.optim.SGD(model.parameters(), lr=1e-1,
+                                momentum=0.9, weight_decay=1e-4)
+
+with torch.no_grad():
+    # Evaluation
+    torch.save(model.state_dict(),
+               log_dir + f"[{data.name}]-pretrained-classifier.pt")
+    ic("Model Checkpoint Saved!")
+    test_backbone_D(model, data.ind_val_loader)
 
 ind_tri_loader = data.ind_train_loader
 ind_val_loader = data.ind_val_loader
@@ -111,7 +124,9 @@ criterion = nn.CrossEntropyLoss()
 iter_count_train = 0
 iter_count_val = 0
 for epoch in tqdm(range(max_epoch)):
-    adjust_opt('sgd', optimizer, epoch)
+    if args.opt == 'sgd':
+        adjust_opt('sgd', optimizer, epoch, max_epoch)
+
     # Training
     model.train()
     train_loss, train_acc, wass = [], [], []
@@ -153,6 +168,6 @@ for epoch in tqdm(range(max_epoch)):
 with torch.no_grad():
     # Evaluation
     torch.save(model.state_dict(),
-               log_dir + f"[{dset.name}]-pretrained-classifier.pt")
+               log_dir + f"[{data.name}]-pretrained-classifier.pt")
     ic("Model Checkpoint Saved!")
-    test_backbone_D(model, dset.ind_val_loader)
+    test_backbone_D(model, data.ind_val_loader)
