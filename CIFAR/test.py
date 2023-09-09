@@ -107,12 +107,12 @@ else:
 
 
 test_loader = torch.utils.data.DataLoader(test_data, batch_size=args.test_bs, shuffle=False,
-                                          num_workers=args.prefetch, pin_memory=True)
+                                          num_workers=1, pin_memory=True)
 
 # Create model
 
 net = DenseNet3(100, num_classes, 12, reduction=0.5,
-                bottleneck=True, dropRate=0.0, num_channels=num_channels)
+                bottleneck=True, dropRate=0.0, input_channel=num_channels)
 
 start_epoch = 0
 
