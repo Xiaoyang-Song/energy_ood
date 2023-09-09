@@ -150,8 +150,10 @@ if args.calibration:
 
 # Fetch OoD data from existing repository
 fname = f"/home/xysong/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.dataset}/OOD-{args.regime}-{args.n_ood}.pt"
-ood_data, _ = torch.load(fname)
+ood_data, ood_label = torch.load(fname)
 ic(ood_data.shape)
+
+ood_data = list(zip(ood_data, ood_label))
 
 train_loader_in = torch.utils.data.DataLoader(
     train_data_in,
@@ -171,6 +173,7 @@ test_loader = torch.utils.data.DataLoader(
 # Create model
 net = DenseNet3(100, num_classes, 12, reduction=0.5,
                 bottleneck=True, dropRate=0.0, input_channel=num_channels)
+print('Model Restored!')
 
 
 def recursion_change_bn(module):
