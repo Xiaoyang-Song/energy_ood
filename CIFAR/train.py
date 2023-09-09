@@ -13,6 +13,8 @@ import torch.nn.functional as F
 from tqdm import tqdm
 from models.wrn import WideResNet
 from models.densenet import *
+from dataset import *
+from icecream import ic
 
 if __package__ is None:
     import sys
@@ -24,9 +26,9 @@ if __package__ is None:
 
 parser = argparse.ArgumentParser(description='Tunes a CIFAR Classifier with OE',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('dataset', type=str, choices=['cifar10', 'cifar100'],
+parser.add_argument('dataset', type=str,
                     help='Choose between CIFAR-10, CIFAR-100.')
-parser.add_argument('--model', '-m', type=str, default='allconv',
+parser.add_argument('--model', '-m', type=str, default='densenet',
                     choices=['allconv', 'wrn', 'densenet'], help='Choose architecture.')
 parser.add_argument('--calibration', '-c', action='store_true',
                     help='Train a model to be used for calibration. This holds out some data for validation.')
@@ -43,12 +45,16 @@ parser.add_argument('--test_bs', type=int, default=200)
 parser.add_argument('--momentum', type=float, default=0.9, help='Momentum.')
 parser.add_argument('--decay', '-d', type=float,
                     default=0.0005, help='Weight decay (L2 penalty).')
+
+
 # WRN Architecture
 parser.add_argument('--layers', default=40, type=int,
                     help='total number of layers')
 parser.add_argument('--widen-factor', default=2, type=int, help='widen factor')
 parser.add_argument('--droprate', default=0.3, type=float,
                     help='dropout probability')
+
+
 # Checkpoints
 parser.add_argument('--save', '-s', type=str,
                     default='./snapshots/', help='Folder to save checkpoints.')
@@ -58,8 +64,10 @@ parser.add_argument('--test', '-t', action='store_true',
                     help='Test only flag.')
 # Acceleration
 parser.add_argument('--ngpu', type=int, default=1, help='0 = CPU.')
-parser.add_argument('--prefetch', type=int, default=4,
+parser.add_argument('--prefetch', type=int, default=1,
                     help='Pre-fetching threads.')
+
+
 # EG specific
 parser.add_argument('--m_in', type=float, default=-25.,
                     help='margin for in-distribution; above this value will be penalized')
@@ -68,6 +76,11 @@ parser.add_argument('--m_out', type=float, default=-7.,
 parser.add_argument('--score', type=str, default='OE', help='OE|energy')
 parser.add_argument('--seed', type=int, default=1,
                     help='seed for np(tinyimages80M sampling); 1|2|8|100|107')
+
+parser.add_argument('--regime', type=str, default='Balanced', help='Regime')
+parser.add_argument('--n_ood', type=int, default=32,
+                    help='Number of OoD samples')
+
 args = parser.parse_args()
 
 
@@ -85,26 +98,44 @@ print(state)
 torch.manual_seed(1)
 np.random.seed(args.seed)
 
-# mean and standard deviation of channels of CIFAR-10 images
-mean = [x / 255 for x in [125.3, 123.0, 113.9]]
-std = [x / 255 for x in [63.0, 62.1, 66.7]]
-
-train_transform = trn.Compose([trn.RandomHorizontalFlip(), trn.RandomCrop(32, padding=4),
-                               trn.ToTensor(), trn.Normalize(mean, std)])
-test_transform = trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)])
-
-if args.dataset == 'cifar10':
-    train_data_in = dset.CIFAR10(
-        '../data/cifarpy', train=True, transform=train_transform)
-    test_data = dset.CIFAR10(
-        '../data/cifarpy', train=False, transform=test_transform)
+if args.dataset == 'CIFAR10-SVHN':
+    # mean and standard deviation of channels of CIFAR-10 images
+    mean = [x / 255 for x in [125.3, 123.0, 113.9]]
+    std = [x / 255 for x in [63.0, 62.1, 66.7]]
+    train_transform = trn.Compose([trn.RandomHorizontalFlip(), trn.RandomCrop(32, padding=4),
+                                   trn.ToTensor(), trn.Normalize(mean, std)])
+    test_transform = trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)])
+    train_data_in = dset.CIFAR10('./Dataset/CIFAR-10',
+                                 train=True, transform=train_transform, download=True)
+    test_data = dset.CIFAR10('./Dataset/CIFAR-10',
+                             train=False, transform=test_transform, download=True)
     num_classes = 10
+    num_channels = 3
+
+elif args.dataset == 'MNIST-FashionMNIST':
+    data = DSET(args.dataset, False, 128, 128, None, None)
+    train_data_in, test_data = data.ind_train, data.ind_val
+    num_classes = 10
+    num_channels = 1
+
+elif args.dataset == 'SVHN' or args.dataset == 'FashionMNIST':
+    data = DSET(args.dataset, True, 128, 128, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
+    train_data_in, test_data = data.ind_train, data.ind_val
+    num_classes = 8
+
+    if args.dataset == 'SVHN':
+        num_channels = 3
+    else:
+        num_channels = 1
+
+elif args.dataset == 'MNIST':
+    data = DSET(args.dataset, True, 128, 128, [2, 3, 6, 8, 9], [1, 7])
+    train_data_in, test_data = data.ind_train, data.ind_val
+    num_channels = 1
+    num_classes = 5
+
 else:
-    train_data_in = dset.CIFAR100(
-        '../data/cifarpy', train=True, transform=train_transform)
-    test_data = dset.CIFAR100(
-        '../data/cifarpy', train=False, transform=test_transform)
-    num_classes = 100
+    assert False
 
 
 calib_indicator = ''
@@ -113,9 +144,13 @@ if args.calibration:
     calib_indicator = '_calib'
 
 
-ood_data = TinyImages(transform=trn.Compose(
-    [trn.ToTensor(), trn.ToPILImage(), trn.RandomCrop(32, padding=4),
-     trn.RandomHorizontalFlip(), trn.ToTensor(), trn.Normalize(mean, std)]))
+# ood_data = TinyImages(transform=trn.Compose(
+#     [trn.ToTensor(), trn.ToPILImage(), trn.RandomCrop(32, padding=4),
+#      trn.RandomHorizontalFlip(), trn.ToTensor(), trn.Normalize(mean, std)]))
+
+fname = f"~/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.dataset}/OOD-{args.regime}-{args.n_ood}.pt"
+ood_data, _ = torch.load(fname)
+ic(ood_data.shape)
 
 train_loader_in = torch.utils.data.DataLoader(
     train_data_in,
@@ -133,8 +168,8 @@ test_loader = torch.utils.data.DataLoader(
     num_workers=args.prefetch, pin_memory=True)
 
 # Create model
-net = WideResNet(args.layers, num_classes,
-                 args.widen_factor, dropRate=args.droprate)
+net = DenseNet3(100, num_classes, 12, reduction=0.5,
+                bottleneck=True, dropRate=0.0, input_channel=num_channels)
 
 
 def recursion_change_bn(module):
@@ -148,19 +183,11 @@ def recursion_change_bn(module):
 
 
 # Restore model
-model_found = False
-if args.load != '':
-    for i in range(1000 - 1, -1, -1):
-
-        model_name = os.path.join(args.load, args.dataset + calib_indicator + '_' + args.model +
-                                  '_pretrained_epoch_' + str(i) + '.pt')
-        if os.path.isfile(model_name):
-            net.load_state_dict(torch.load(model_name))
-            print('Model restored! Epoch:', i)
-            model_found = True
-            break
-    if not model_found:
-        assert False, "could not find model to restore"
+model_name = os.path.join(os.path.join(
+    args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
+if os.path.isfile(model_name):
+    net.load_state_dict(torch.load(model_name))
+    print('Model restored!')
 
 if args.ngpu > 1:
     net = torch.nn.DataParallel(net, device_ids=list(range(args.ngpu)))
