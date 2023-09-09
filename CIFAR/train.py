@@ -149,7 +149,7 @@ if args.calibration:
 #      trn.RandomHorizontalFlip(), trn.ToTensor(), trn.Normalize(mean, std)]))
 
 # Fetch OoD data from existing repository
-fname = f"~/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.dataset}/OOD-{args.regime}-{args.n_ood}.pt"
+fname = f"/home/xysong/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.dataset}/OOD-{args.regime}-{args.n_ood}.pt"
 ood_data, _ = torch.load(fname)
 ic(ood_data.shape)
 
