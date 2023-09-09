@@ -153,7 +153,9 @@ fname = f"/home/xysong/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.data
 ood_data, ood_label = torch.load(fname)
 ic(ood_data.shape)
 
-ood_data = list(zip(ood_data, ood_label))
+ood_data = torch.utils.data.TensorDataset(ood_data, ood_label)
+
+# ood_data = list(zip(ood_data, ood_label))
 
 train_loader_in = torch.utils.data.DataLoader(
     train_data_in,
