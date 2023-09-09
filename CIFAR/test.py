@@ -326,10 +326,14 @@ def get_and_print_results(ood_loader, num_to_avg=args.num_to_avg):
     print(in_score[:3], out_score[:3])
     auroc = np.mean(aurocs)
     aupr = np.mean(auprs)
-    fpr = np.mean(fprs)
+    fprs = np.array(fprs)
+    # print(fprs)
+    fpr = np.mean(fprs, axis=0)
+    # print(fpr)
     auroc_list.append(auroc)
     aupr_list.append(aupr)
-    fpr_list.append(fpr)
+    fpr_list_95.append(fpr[0])
+    fpr_list_99.append(fpr[1])
 
     if num_to_avg >= 5:
         print_measures_with_std(aurocs, auprs, fprs, args.method_name)
@@ -345,7 +349,6 @@ def get_and_print_results(ood_loader, num_to_avg=args.num_to_avg):
 #                                          num_workers=4, pin_memory=True)
 # print('\n\nTexture Detection')
 # get_and_print_results(ood_loader)
-
 
 if args.dataset == 'CIFAR10-SVHN':
     ood_data = dset.SVHN('./Datasets/SVHN', split='test', download=True,
