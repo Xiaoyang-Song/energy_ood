@@ -110,7 +110,7 @@ elif args.opt == 'sgd':
 with torch.no_grad():
     # Evaluation
     torch.save(model.state_dict(),
-               log_dir + f"[{data.name}]-pretrained-classifier.pt")
+               log_dir + f'[{data.name}]-pretrained-classifier.pt')
     ic("Model Checkpoint Saved!")
     test_backbone_D(model, data.ind_val_loader)
 
@@ -168,6 +168,6 @@ for epoch in tqdm(range(max_epoch)):
 with torch.no_grad():
     # Evaluation
     torch.save(model.state_dict(),
-               log_dir + f"[{data.name}]-pretrained-classifier.pt")
+               log_dir + f'[{data.name}]-pretrained-classifier.pt')
     ic("Model Checkpoint Saved!")
     test_backbone_D(model, data.ind_val_loader)
