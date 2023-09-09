@@ -199,14 +199,7 @@ def test_backbone_D_V1(model, val_loader):
 # Create model
 net = DenseNet3(100, num_classes, 12, reduction=0.5,
                 bottleneck=True, dropRate=0.0, input_channel=num_channels).to(DEVICE)
-print('Model Restored!')
-
-with torch.no_grad():
-    # Evaluation
-    # torch.save(model.state_dict(),
-    #            log_dir + f'[{data.name}]-pretrained-classifier.pt')
-    # ic("Model Checkpoint Saved!")
-    test_backbone_D_V1(net, data.ind_val_loader)
+# print('Model Restored!')
 
 
 def recursion_change_bn(module):
@@ -220,11 +213,18 @@ def recursion_change_bn(module):
 
 
 # Restore model
-model_name = os.path.join(os.path.join(
-    args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
+model_name = os.path.join(
+    args.load, f'[{args.dataset}]-pretrained-classifier' + '.pt')
 if os.path.isfile(model_name):
     net.load_state_dict(torch.load(model_name))
     print('Model restored!')
+
+with torch.no_grad():
+    # Evaluation
+    # torch.save(model.state_dict(),
+    #            log_dir + f'[{data.name}]-pretrained-classifier.pt')
+    # ic("Model Checkpoint Saved!")
+    test_backbone_D_V1(net, data.ind_val_loader)
 
 if args.ngpu > 1:
     net = torch.nn.DataParallel(net, device_ids=list(range(args.ngpu)))
