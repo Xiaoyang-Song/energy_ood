@@ -322,7 +322,7 @@ if not os.path.exists(args.save):
 if not os.path.isdir(args.save):
     raise Exception('%s is not a dir' % args.save)
 
-with open(os.path.join(args.save, args.dataset + '_' + args.regime + '_' + args.n_ood + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
+with open(os.path.join(args.save, args.dataset + '_' + args.regime + '_' + str(args.n_ood) + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
                        '_' + save_info+'_training_results.csv'), 'w') as f:
     f.write('epoch,time(s),train_loss,test_loss,test_error(%)\n')
 
