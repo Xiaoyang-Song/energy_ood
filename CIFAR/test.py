@@ -60,6 +60,11 @@ parser.add_argument('--score', default='MSP', type=str,
 parser.add_argument('--T', default=1., type=float,
                     help='temperature: energy|Odin')
 parser.add_argument('--noise', type=float, default=0, help='noise for Odin')
+
+parser.add_argument('--type', type=str, default='pretrained')
+parser.add_argument('--ft_epochs', type=int, default=199)
+parser.add_argument('--ft_n', type=int, default=4)
+
 args = parser.parse_args()
 print(args)
 # torch.manual_seed(1)
@@ -119,14 +124,20 @@ start_epoch = 0
 # Restore model
 
 #
-# model_name = os.path.join(os.path.join(
-#     args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
 
-model_name = './snapshots/energy_ft/FashionMNIST_densenet_s1_energy_ft_epoch_199.pt'
+if args.type == 'pretrained':
+    model_name = os.path.join(os.path.join(
+        args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
+elif args.type == 'ft':
+    model_name = f'./snapshots/energy_ft/{args.dataset}_densenet_s1_energy_ft_{args.ft_n}_epoch_{args.ft_epochs}.pt'
+else:
+    assert False
 
 if os.path.isfile(model_name):
     net.load_state_dict(torch.load(model_name))
     print('Model restored!')
+else:
+    assert False
 # if args.load != '':
 #     for i in range(1000 - 1, -1, -1):
 #         if 'pretrained' in args.method_name:
