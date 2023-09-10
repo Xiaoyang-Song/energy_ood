@@ -64,6 +64,7 @@ parser.add_argument('--noise', type=float, default=0, help='noise for Odin')
 parser.add_argument('--type', type=str, default='pretrained')
 parser.add_argument('--ft_epochs', type=int, default=199)
 parser.add_argument('--ft_n', type=int, default=4)
+parser.add_argument('--regime', type=str, default='Balanced', help='Regime')
 
 args = parser.parse_args()
 print(args)
@@ -129,8 +130,7 @@ if args.type == 'pretrained':
     model_name = os.path.join(os.path.join(
         args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
 elif args.type == 'ft':
-    model_name = f'./snapshots/energy_ft/{args.dataset}_{args.regime}_{str(args.n_ood)}_densenet_s1_energy_ft_epoch_{args.ft_epochs}.pt'
-    # model_name = f'./snapshots/energy_ft/{args.dataset}_densenet_s1_energy_ft_{args.ft_n}_epoch_{args.ft_epochs}.pt'
+    model_name = f'./snapshots/energy_ft/{args.dataset}_{args.regime}_{str(args.ft_n)}_densenet_s1_energy_ft_epoch_{args.ft_epochs}.pt'
 else:
     assert False
 
@@ -366,6 +366,8 @@ def get_and_print_results(ood_loader, num_to_avg=args.num_to_avg):
 #                                          num_workers=4, pin_memory=True)
 # print('\n\nTexture Detection')
 # get_and_print_results(ood_loader)
+if args.type == 'ft':
+    print(f"Configuration: {args.dataset}_{args.regime}_{str(args.ft_n)}")
 
 if args.dataset == 'CIFAR10-SVHN':
     ood_data = dset.SVHN('./Datasets/SVHN', split='test', download=True,
@@ -378,7 +380,7 @@ if args.dataset == 'CIFAR10-SVHN':
     #                              trn.ToTensor(), trn.Normalize(mean, std)]), download=True)
     ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
                                              num_workers=1, pin_memory=True)
-    print('\n\nSVHN Detection')
+    print('\n\nCIFAR10-SVHN Detection')
     get_and_print_results(ood_loader)
 else:
     print(data.name)
