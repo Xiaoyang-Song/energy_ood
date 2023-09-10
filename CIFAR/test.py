@@ -380,14 +380,14 @@ if args.dataset == 'CIFAR10-SVHN':
     #                              trn.ToTensor(), trn.Normalize(mean, std)]), download=True)
     ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
                                              num_workers=1, pin_memory=True)
-    print('\n\nCIFAR10-SVHN Detection')
+    print('\nCIFAR10-SVHN Detection\n')
     get_and_print_results(ood_loader)
 else:
-    print(data.name)
+    # print(data.name)
     ood_data = data.ood_val
     ood_loader = torch.utils.data.DataLoader(ood_data, batch_size=args.test_bs, shuffle=True,
                                              num_workers=1, pin_memory=True)
-    print(f'\n\n{data.name} Detection')
+    print(f'\n{data.name} Detection\n')
     get_and_print_results(ood_loader)
 
 
