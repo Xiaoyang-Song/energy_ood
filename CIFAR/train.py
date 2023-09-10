@@ -99,16 +99,8 @@ torch.manual_seed(1)
 np.random.seed(args.seed)
 
 if args.dataset == 'CIFAR10-SVHN':
-    # mean and standard deviation of channels of CIFAR-10 images
-    mean = [x / 255 for x in [125.3, 123.0, 113.9]]
-    std = [x / 255 for x in [63.0, 62.1, 66.7]]
-    train_transform = trn.Compose([trn.RandomHorizontalFlip(), trn.RandomCrop(32, padding=4),
-                                   trn.ToTensor(), trn.Normalize(mean, std)])
-    test_transform = trn.Compose([trn.ToTensor(), trn.Normalize(mean, std)])
-    train_data_in = dset.CIFAR10('./Dataset/CIFAR-10',
-                                 train=True, transform=train_transform, download=True)
-    test_data = dset.CIFAR10('./Dataset/CIFAR-10',
-                             train=False, transform=test_transform, download=True)
+    data = DSET(args.dataset, False, 128, 128, None, None)
+    train_data_in, test_data = data.ind_train, data.ind_val
     num_classes = 10
     num_channels = 3
 
