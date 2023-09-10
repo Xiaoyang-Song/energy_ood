@@ -129,7 +129,7 @@ if args.type == 'pretrained':
     model_name = os.path.join(os.path.join(
         args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
 elif args.type == 'ft':
-    model_name = f'./snapshots/energy_ft/{args.dataset}_densenet_s1_energy_ft_epoch_{args.ft_epochs}.pt'
+    model_name = f'./snapshots/energy_ft/{args.dataset}_{args.regime}_{str(args.n_ood)}_densenet_s1_energy_ft_epoch_{args.ft_epochs}.pt'
     # model_name = f'./snapshots/energy_ft/{args.dataset}_densenet_s1_energy_ft_{args.ft_n}_epoch_{args.ft_epochs}.pt'
 else:
     assert False

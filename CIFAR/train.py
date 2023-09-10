@@ -339,17 +339,17 @@ for epoch in range(0, args.epochs):
 
     # Save model
     torch.save(net.state_dict(),
-               os.path.join(args.save, args.dataset + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
+               os.path.join(args.save, args.dataset + '_' + args.regime + '_' + str(args.n_ood) + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
                             '_' + save_info + '_epoch_' + str(epoch) + '.pt'))
 
     # Let us not waste space and delete the previous model
-    prev_path = os.path.join(args.save, args.dataset + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
+    prev_path = os.path.join(args.save, args.dataset + '_' + args.regime + '_' + str(args.n_ood) + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
                              '_' + save_info + '_epoch_' + str(epoch - 1) + '.pt')
     if os.path.exists(prev_path):
         os.remove(prev_path)
 
     # Show results
-    with open(os.path.join(args.save, args.dataset + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
+    with open(os.path.join(args.save, args.dataset + '_' + args.regime + '_' + str(args.n_ood) + calib_indicator + '_' + args.model + '_s' + str(args.seed) +
                            '_' + save_info + '_training_results.csv'), 'a') as f:
         f.write('%03d,%05d,%0.6f,%0.5f,%0.2f\n' % (
             (epoch + 1),
