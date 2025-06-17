@@ -121,10 +121,10 @@ elif args.dataset == 'SVHN' or args.dataset == 'FashionMNIST':
         num_channels = 1
 
 elif args.dataset == 'MNIST':
-    data = DSET(args.dataset, True, 128, 128, [2, 3, 6, 8, 9], [1, 7])
+    data = DSET(args.dataset, True, 128, 128, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
     train_data_in, test_data = data.ind_train, data.ind_val
     num_channels = 1
-    num_classes = 5
+    num_classes = 8
 
 else:
     assert False
@@ -143,7 +143,8 @@ if args.calibration:
 # Fetch OoD data from existing repository
 fname = f"/home/xysong/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.dataset}/OOD-{args.regime}-{args.n_ood}.pt"
 ood_data, ood_label = torch.load(fname)
-ic(ood_data.shape)
+print(ood_data.shape)
+print(Counter(np.array(ood_label)))
 
 ood_data = torch.utils.data.TensorDataset(ood_data, ood_label)
 
