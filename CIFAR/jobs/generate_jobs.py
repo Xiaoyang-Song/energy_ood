@@ -66,6 +66,9 @@ if not CMD_ONLY:
             f.write(
                 f"""python test.py --dataset {EXP_DSET} --score energy --num_to_avg 5 --type energy --ft_n {n} --ft_epochs 99 --regime {regime}\n"""    
             )
+            f.write(
+                f"""python test.py --dataset {EXP_DSET} --score energy --num_to_avg 5 --type pretrained\n"""    
+            )
         elif method == 'OE':
             f.write(
                 f"""python test.py --dataset {EXP_DSET} --score MSP --num_to_avg 5 --type OE --ft_n {n} --ft_epochs 99 --regime {regime} --out_as_pos\n"""    

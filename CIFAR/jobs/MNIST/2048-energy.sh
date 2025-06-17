@@ -13,3 +13,4 @@
 
 python train.py --dataset MNIST --score energy --n_ood 2048 --regime Balanced --epochs 100
 python test.py --dataset MNIST --score energy --num_to_avg 5 --type energy --ft_n 2048 --ft_epochs 99 --regime Balanced
+python test.py --dataset MNIST --score energy --num_to_avg 5 --type pretrained

@@ -13,3 +13,4 @@
 
 python train.py --dataset SVHN --score energy --n_ood 4096 --regime Balanced --epochs 100
 python test.py --dataset SVHN --score energy --num_to_avg 5 --type energy --ft_n 4096 --ft_epochs 99 --regime Balanced
+python test.py --dataset SVHN --score energy --num_to_avg 5 --type pretrained

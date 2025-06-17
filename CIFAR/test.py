@@ -368,7 +368,7 @@ def get_and_print_results(ood_loader, num_to_avg=args.num_to_avg):
 #                                          num_workers=4, pin_memory=True)
 # print('\n\nTexture Detection')
 # get_and_print_results(ood_loader)
-if args.type == 'ft':
+if args.type == 'energy' or args.type == 'OE':
     print(f"Configuration: {args.dataset}_{args.regime}_{str(args.ft_n)}")
 
 if args.dataset == 'CIFAR10-SVHN':

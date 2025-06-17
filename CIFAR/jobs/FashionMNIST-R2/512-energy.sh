@@ -13,3 +13,4 @@
 
 python train.py --dataset FashionMNIST --score energy --n_ood 512 --regime Imbalanced --epochs 100
 python test.py --dataset FashionMNIST --score energy --num_to_avg 5 --type energy --ft_n 512 --ft_epochs 99 --regime Imbalanced
+python test.py --dataset FashionMNIST --score energy --num_to_avg 5 --type pretrained
