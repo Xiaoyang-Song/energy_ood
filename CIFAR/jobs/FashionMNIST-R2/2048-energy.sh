@@ -8,7 +8,7 @@
 #SBATCH --partition=gpu
 #SBATCH --gpus=1
 #SBATCH --mem-per-gpu=16GB
-#SBATCH --time=4:00:00
+#SBATCH --time=00:15:00
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/energy/FashionMNIST-Imbalanced/2048.log
 
 python train.py --dataset FashionMNIST --score energy --n_ood 2048 --regime Imbalanced --epochs 100

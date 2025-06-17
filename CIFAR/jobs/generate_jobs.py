@@ -9,13 +9,15 @@ parser.add_argument('--exp', type=str)
 parser.add_argument('--regime', type=str)
 parser.add_argument('--method', type=str)
 parser.add_argument('--dir', type=str)
+parser.add_argument('--time', type=str)
 
 args = parser.parse_args()
 
 
 # GL
 ACCOUNT = 'sunwbgt0'
-TIME = "4:00:00"
+# TIME = "00:00:00"
+TIME = args.time
 
 
 regime=args.regime

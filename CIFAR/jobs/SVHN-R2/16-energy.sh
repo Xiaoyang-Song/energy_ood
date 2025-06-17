@@ -8,7 +8,7 @@
 #SBATCH --partition=gpu
 #SBATCH --gpus=1
 #SBATCH --mem-per-gpu=16GB
-#SBATCH --time=4:00:00
+#SBATCH --time=00:30:00
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/energy/SVHN-Imbalanced/16.log
 
 python train.py --dataset SVHN --score energy --n_ood 16 --regime Imbalanced --epochs 100
