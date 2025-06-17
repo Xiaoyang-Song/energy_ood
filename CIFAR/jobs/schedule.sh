@@ -1,6 +1,3 @@
-
-# ENERGY
-
 sbatch jobs/MNIST/8-energy.sh
 sbatch jobs/MNIST/16-energy.sh
 sbatch jobs/MNIST/32-energy.sh

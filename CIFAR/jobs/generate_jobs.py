@@ -8,6 +8,7 @@ parser = argparse.ArgumentParser(description='Tunes a CIFAR Classifier with OE',
 parser.add_argument('--exp', type=str)
 parser.add_argument('--regime', type=str)
 parser.add_argument('--method', type=str)
+parser.add_argument('--dir', type=str)
 
 args = parser.parse_args()
 
@@ -15,21 +16,13 @@ args = parser.parse_args()
 # GL
 ACCOUNT = 'sunwbgt0'
 TIME = "4:00:00"
-# Configuration
-# EXP_DSET = 'fmnist'
-# EXP_DSET = 'fmnist-R2'
-# EXP_DSET = 'cifar10-svhn'
-# EXP_DSET = 'mnist'
-EXP_DSET = 'mnist-fashionmnist' 
-# EXP_DSET = 'svhn' 
-# EXP_DSET = 'svhn-R2'
-# regime = 'Imbalanced'
-regime = 'Balanced'
-method = 'OE'
+
 
 regime=args.regime
 EXP_DSET = args.exp
+DIR_NAME = args.dir
 method = args.method
+
 
 N = [8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 
@@ -37,20 +30,20 @@ CMD_ONLY = False
 
 
 for n in N:
-    print(f"sbatch jobs/{EXP_DSET}/{n}-{method}.sh")
+    print(f"sbatch jobs/{DIR_NAME}/{n}-{method}.sh")
 
 if not CMD_ONLY:
     print("\n\n# Generating job files...")
     # Create logging directory
-    log_path = os.path.join('checkpoint', 'log', EXP_DSET)
+    log_path = os.path.join('checkpoint', 'log', DIR_NAME)
     os.makedirs(log_path, exist_ok=True)
 
     for n in N:
         # Create job directory
-        job_path = os.path.join('jobs', EXP_DSET)
+        job_path = os.path.join('jobs', DIR_NAME)
         os.makedirs(job_path, exist_ok=True)
         # Declare job name
-        filename = os.path.join('jobs', EXP_DSET, f"{n}-{method}.sh")
+        filename = os.path.join('jobs', DIR_NAME, f"{n}-{method}.sh")
         # Write files
         f = open(filename, 'w')
         f.write("#!/bin/bash\n\n")

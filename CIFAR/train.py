@@ -103,28 +103,33 @@ if args.dataset == 'CIFAR10-SVHN':
     train_data_in, test_data = data.ind_train, data.ind_val
     num_classes = 10
     num_channels = 3
+    ood_data = 'CIFAR10-SVHN'
 
 elif args.dataset == 'MNIST-FashionMNIST':
     data = DSET(args.dataset, False, 128, 128, None, None)
     train_data_in, test_data = data.ind_train, data.ind_val
     num_classes = 10
     num_channels = 1
+    ood_data = 'MNIST-FashionMNIST'
 
-elif args.dataset == 'SVHN' or args.dataset == 'FashionMNIST':
+elif args.dataset in ['SVHN', 'SVHN-R2', 'FashionMNIST', 'FashionMNIST-R2']:
     data = DSET(args.dataset, True, 128, 128, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
     train_data_in, test_data = data.ind_train, data.ind_val
     num_classes = 8
 
-    if args.dataset == 'SVHN':
+    if args.dataset == 'SVHN' or args.dataset == 'SVHN-R2':
         num_channels = 3
+        ood_data = 'SVHN'
     else:
         num_channels = 1
+        ood_data = 'FashionMNIST'
 
 elif args.dataset == 'MNIST':
     data = DSET(args.dataset, True, 128, 128, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
     train_data_in, test_data = data.ind_train, data.ind_val
     num_channels = 1
     num_classes = 8
+    ood_data = 'MNIST'
 
 else:
     assert False
@@ -141,7 +146,7 @@ if args.calibration:
 #      trn.RandomHorizontalFlip(), trn.ToTensor(), trn.Normalize(mean, std)]))
 
 # Fetch OoD data from existing repository
-fname = f"/home/xysong/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{args.dataset}/OOD-{args.regime}-{args.n_ood}.pt"
+fname = f"/home/xysong/Out-of-Distribution-GANs/checkpoint/OOD-Sample/{ood_data}/OOD-{args.regime}-{args.n_ood}.pt"
 ood_data, ood_label = torch.load(fname)
 print(ood_data.shape)
 print(Counter(np.array(ood_label)))

@@ -98,7 +98,7 @@ else:
 # CIFAR10 pre training
 model = DenseNet3(depth=100, num_classes=num_classes,
                   input_channel=num_channels).to(DEVICE)
-lr = 1e-1
+lr = args.lr
 
 if args.opt == 'adam':
     optimizer = torch.optim.Adam(
