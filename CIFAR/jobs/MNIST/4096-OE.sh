@@ -12,4 +12,4 @@
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/OE/MNIST-Balanced/4096.log
 
 python train.py --dataset MNIST --score OE --n_ood 4096 --regime Balanced --epochs 100
-python test.py --dataset MNIST --score OE --num_to_avg 5 --type ft --ft_n 4096 --ft_epochs 99 --regime Balanced
+python test.py --dataset MNIST --score MSP --num_to_avg 5 --type OE --ft_n 4096 --ft_epochs 99 --regime Balanced --out_as_pos

@@ -12,4 +12,4 @@
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/OE/SVHN-Balanced/1024.log
 
 python train.py --dataset SVHN --score OE --n_ood 1024 --regime Balanced --epochs 100
-python test.py --dataset SVHN --score OE --num_to_avg 5 --type ft --ft_n 1024 --ft_epochs 99 --regime Balanced
+python test.py --dataset SVHN --score MSP --num_to_avg 5 --type OE --ft_n 1024 --ft_epochs 99 --regime Balanced --out_as_pos

@@ -12,4 +12,4 @@
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/OE/FashionMNIST-Balanced/2048.log
 
 python train.py --dataset FashionMNIST --score OE --n_ood 2048 --regime Balanced --epochs 100
-python test.py --dataset FashionMNIST --score OE --num_to_avg 5 --type ft --ft_n 2048 --ft_epochs 99 --regime Balanced
+python test.py --dataset FashionMNIST --score MSP --num_to_avg 5 --type OE --ft_n 2048 --ft_epochs 99 --regime Balanced --out_as_pos

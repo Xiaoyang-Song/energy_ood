@@ -129,8 +129,10 @@ start_epoch = 0
 if args.type == 'pretrained':
     model_name = os.path.join(os.path.join(
         args.load, 'pretrained'), f'[{args.dataset}]-pretrained-classifier' + '.pt')
-elif args.type == 'ft':
+elif args.type == 'energy':
     model_name = f'./snapshots/energy_ft/{args.dataset}_{args.regime}_{str(args.ft_n)}_densenet_s1_energy_ft_epoch_{args.ft_epochs}.pt'
+elif args.type == 'OE':
+    model_name = f'./snapshots/oe_tune/{args.dataset}_{args.regime}_{str(args.ft_n)}_densenet_s1_oe_tune_epoch_{args.ft_epochs}.pt'
 else:
     assert False
 
@@ -269,10 +271,10 @@ elif args.score == 'M':
             num_channels = 1
 
     elif args.dataset == 'MNIST':
-        data = DSET(args.dataset, True, 128, 128, [2, 3, 6, 8, 9], [1, 7])
+        data = DSET(args.dataset, True, 128, 128, [0, 1, 2, 3, 4, 5, 6, 7], [8, 9])
         train_data, test_data = data.ind_train, data.ind_val
         num_channels = 1
-        num_classes = 5
+        num_classes = 8
 
     else:
         assert False
@@ -308,8 +310,8 @@ print('Error Rate {:.2f}'.format(100 * num_wrong / (num_wrong + num_right)))
 
 # /////////////// End Detection Prelims ///////////////
 
-print('\nUsing CIFAR-10 as typical data') if num_classes == 10 else print(
-    '\nUsing CIFAR-100 as typical data')
+# print('\nUsing CIFAR-10 as typical data') if num_classes == 10 else print(
+#     '\nUsing CIFAR-100 as typical data')
 
 # /////////////// Error Detection ///////////////
 

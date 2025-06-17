@@ -12,4 +12,4 @@
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/OE/FashionMNIST-Imbalanced/64.log
 
 python train.py --dataset FashionMNIST --score OE --n_ood 64 --regime Imbalanced --epochs 100
-python test.py --dataset FashionMNIST --score OE --num_to_avg 5 --type ft --ft_n 64 --ft_epochs 99 --regime Imbalanced
+python test.py --dataset FashionMNIST --score MSP --num_to_avg 5 --type OE --ft_n 64 --ft_epochs 99 --regime Imbalanced --out_as_pos

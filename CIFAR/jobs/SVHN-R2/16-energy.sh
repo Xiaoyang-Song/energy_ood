@@ -12,4 +12,4 @@
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/energy/SVHN-Imbalanced/16.log
 
 python train.py --dataset SVHN --score energy --n_ood 16 --regime Imbalanced --epochs 100
-python test.py --dataset SVHN --score energy --num_to_avg 5 --type ft --ft_n 16 --ft_epochs 99 --regime Imbalanced
+python test.py --dataset SVHN --score energy --num_to_avg 5 --type energy --ft_n 16 --ft_epochs 99 --regime Imbalanced
