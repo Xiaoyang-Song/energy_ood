@@ -21,3 +21,115 @@ Epoch   6 | Time    22 | Train Loss 1.1722 | Test Loss 0.016 | Test Error 0.39
 Epoch   7 | Time    22 | Train Loss 1.1697 | Test Loss 0.016 | Test Error 0.35
 Epoch   8 | Time    22 | Train Loss 1.1670 | Test Loss 0.016 | Test Error 0.39
 Epoch   9 | Time    22 | Train Loss 1.1637 | Test Loss 0.016 | Test Error 0.38
+Epoch  10 | Time    22 | Train Loss 1.1620 | Test Loss 0.015 | Test Error 0.39
+Epoch  11 | Time    22 | Train Loss 1.1634 | Test Loss 0.016 | Test Error 0.42
+Epoch  12 | Time    22 | Train Loss 1.1635 | Test Loss 0.015 | Test Error 0.40
+Epoch  13 | Time    22 | Train Loss 1.1603 | Test Loss 0.015 | Test Error 0.39
+Epoch  14 | Time    22 | Train Loss 1.1595 | Test Loss 0.015 | Test Error 0.39
+Epoch  15 | Time    22 | Train Loss 1.1587 | Test Loss 0.014 | Test Error 0.37
+Epoch  16 | Time    22 | Train Loss 1.1594 | Test Loss 0.015 | Test Error 0.36
+Epoch  17 | Time    22 | Train Loss 1.1593 | Test Loss 0.015 | Test Error 0.36
+Epoch  18 | Time    22 | Train Loss 1.1570 | Test Loss 0.015 | Test Error 0.36
+Epoch  19 | Time    22 | Train Loss 1.1573 | Test Loss 0.015 | Test Error 0.37
+Epoch  20 | Time    22 | Train Loss 1.1581 | Test Loss 0.015 | Test Error 0.38
+Epoch  21 | Time    22 | Train Loss 1.1589 | Test Loss 0.015 | Test Error 0.38
+Epoch  22 | Time    22 | Train Loss 1.1581 | Test Loss 0.014 | Test Error 0.33
+Epoch  23 | Time    22 | Train Loss 1.1584 | Test Loss 0.015 | Test Error 0.34
+Epoch  24 | Time    22 | Train Loss 1.1565 | Test Loss 0.015 | Test Error 0.34
+Epoch  25 | Time    22 | Train Loss 1.1555 | Test Loss 0.015 | Test Error 0.34
+Epoch  26 | Time    22 | Train Loss 1.1557 | Test Loss 0.014 | Test Error 0.33
+Epoch  27 | Time    22 | Train Loss 1.1570 | Test Loss 0.014 | Test Error 0.32
+Epoch  28 | Time    22 | Train Loss 1.1555 | Test Loss 0.014 | Test Error 0.33
+Epoch  29 | Time    22 | Train Loss 1.1558 | Test Loss 0.015 | Test Error 0.33
+Epoch  30 | Time    22 | Train Loss 1.1552 | Test Loss 0.015 | Test Error 0.33
+Epoch  31 | Time    22 | Train Loss 1.1554 | Test Loss 0.015 | Test Error 0.34
+Epoch  32 | Time    22 | Train Loss 1.1556 | Test Loss 0.014 | Test Error 0.34
+Epoch  33 | Time    22 | Train Loss 1.1561 | Test Loss 0.015 | Test Error 0.35
+Epoch  34 | Time    22 | Train Loss 1.1556 | Test Loss 0.014 | Test Error 0.35
+Epoch  35 | Time    22 | Train Loss 1.1557 | Test Loss 0.015 | Test Error 0.34
+Epoch  36 | Time    22 | Train Loss 1.1556 | Test Loss 0.014 | Test Error 0.36
+Epoch  37 | Time    22 | Train Loss 1.1563 | Test Loss 0.015 | Test Error 0.35
+Epoch  38 | Time    22 | Train Loss 1.1555 | Test Loss 0.014 | Test Error 0.35
+Epoch  39 | Time    22 | Train Loss 1.1546 | Test Loss 0.015 | Test Error 0.36
+Epoch  40 | Time    22 | Train Loss 1.1575 | Test Loss 0.015 | Test Error 0.38
+Epoch  41 | Time    22 | Train Loss 1.1554 | Test Loss 0.015 | Test Error 0.37
+Epoch  42 | Time    22 | Train Loss 1.1550 | Test Loss 0.014 | Test Error 0.35
+Epoch  43 | Time    22 | Train Loss 1.1543 | Test Loss 0.014 | Test Error 0.35
+Epoch  44 | Time    22 | Train Loss 1.1561 | Test Loss 0.014 | Test Error 0.35
+Epoch  45 | Time    22 | Train Loss 1.1546 | Test Loss 0.014 | Test Error 0.35
+Epoch  46 | Time    22 | Train Loss 1.1549 | Test Loss 0.014 | Test Error 0.35
+Epoch  47 | Time    22 | Train Loss 1.1538 | Test Loss 0.014 | Test Error 0.34
+Epoch  48 | Time    22 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.33
+Epoch  49 | Time    22 | Train Loss 1.1538 | Test Loss 0.014 | Test Error 0.35
+Epoch  50 | Time    22 | Train Loss 1.1557 | Test Loss 0.014 | Test Error 0.36
+Epoch  51 | Time    22 | Train Loss 1.1544 | Test Loss 0.014 | Test Error 0.32
+Epoch  52 | Time    22 | Train Loss 1.1542 | Test Loss 0.014 | Test Error 0.34
+Epoch  53 | Time    22 | Train Loss 1.1543 | Test Loss 0.014 | Test Error 0.33
+Epoch  54 | Time    22 | Train Loss 1.1545 | Test Loss 0.014 | Test Error 0.34
+Epoch  55 | Time    22 | Train Loss 1.1551 | Test Loss 0.014 | Test Error 0.34
+Epoch  56 | Time    22 | Train Loss 1.1544 | Test Loss 0.014 | Test Error 0.33
+Epoch  57 | Time    22 | Train Loss 1.1536 | Test Loss 0.014 | Test Error 0.32
+Epoch  58 | Time    22 | Train Loss 1.1536 | Test Loss 0.014 | Test Error 0.32
+Epoch  59 | Time    22 | Train Loss 1.1538 | Test Loss 0.014 | Test Error 0.32
+Epoch  60 | Time    22 | Train Loss 1.1538 | Test Loss 0.014 | Test Error 0.35
+Epoch  61 | Time    22 | Train Loss 1.1543 | Test Loss 0.014 | Test Error 0.32
+Epoch  62 | Time    22 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.32
+Epoch  63 | Time    22 | Train Loss 1.1541 | Test Loss 0.014 | Test Error 0.32
+Epoch  64 | Time    22 | Train Loss 1.1534 | Test Loss 0.014 | Test Error 0.33
+Epoch  65 | Time    22 | Train Loss 1.1545 | Test Loss 0.014 | Test Error 0.32
+Epoch  66 | Time    22 | Train Loss 1.1536 | Test Loss 0.014 | Test Error 0.34
+Epoch  67 | Time    22 | Train Loss 1.1535 | Test Loss 0.014 | Test Error 0.34
+Epoch  68 | Time    22 | Train Loss 1.1536 | Test Loss 0.014 | Test Error 0.36
+Epoch  69 | Time    22 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.33
+Epoch  70 | Time    22 | Train Loss 1.1533 | Test Loss 0.014 | Test Error 0.32
+Epoch  71 | Time    22 | Train Loss 1.1534 | Test Loss 0.014 | Test Error 0.32
+Epoch  72 | Time    22 | Train Loss 1.1531 | Test Loss 0.014 | Test Error 0.35
+Epoch  73 | Time    22 | Train Loss 1.1533 | Test Loss 0.014 | Test Error 0.33
+Epoch  74 | Time    22 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.33
+Epoch  75 | Time    22 | Train Loss 1.1541 | Test Loss 0.014 | Test Error 0.33
+Epoch  76 | Time    22 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.35
+Epoch  77 | Time    22 | Train Loss 1.1535 | Test Loss 0.014 | Test Error 0.36
+Epoch  78 | Time    22 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.32
+Epoch  79 | Time    22 | Train Loss 1.1543 | Test Loss 0.014 | Test Error 0.33
+Epoch  80 | Time    22 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.32
+Epoch  81 | Time    22 | Train Loss 1.1541 | Test Loss 0.014 | Test Error 0.34
+Epoch  82 | Time    22 | Train Loss 1.1537 | Test Loss 0.014 | Test Error 0.35
+Epoch  83 | Time    22 | Train Loss 1.1535 | Test Loss 0.014 | Test Error 0.32
+Epoch  84 | Time    22 | Train Loss 1.1535 | Test Loss 0.013 | Test Error 0.34
+Epoch  85 | Time    22 | Train Loss 1.1530 | Test Loss 0.014 | Test Error 0.35
+Epoch  86 | Time    22 | Train Loss 1.1535 | Test Loss 0.014 | Test Error 0.34
+Epoch  87 | Time    22 | Train Loss 1.1529 | Test Loss 0.014 | Test Error 0.33
+Epoch  88 | Time    22 | Train Loss 1.1535 | Test Loss 0.014 | Test Error 0.32
+Epoch  89 | Time    22 | Train Loss 1.1538 | Test Loss 0.014 | Test Error 0.32
+Epoch  90 | Time    22 | Train Loss 1.1536 | Test Loss 0.014 | Test Error 0.36
+Epoch  91 | Time    22 | Train Loss 1.1538 | Test Loss 0.014 | Test Error 0.34
+Epoch  92 | Time    22 | Train Loss 1.1528 | Test Loss 0.013 | Test Error 0.34
+Epoch  93 | Time    22 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.33
+Epoch  94 | Time    22 | Train Loss 1.1528 | Test Loss 0.014 | Test Error 0.33
+Epoch  95 | Time    22 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.33
+Epoch  96 | Time    22 | Train Loss 1.1534 | Test Loss 0.014 | Test Error 0.35
+Epoch  97 | Time    22 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.35
+Epoch  98 | Time    22 | Train Loss 1.1531 | Test Loss 0.014 | Test Error 0.35
+Epoch  99 | Time    22 | Train Loss 1.1534 | Test Loss 0.014 | Test Error 0.35
+Epoch 100 | Time    22 | Train Loss 1.1532 | Test Loss 0.013 | Test Error 0.37
+ic| len(dset): 60000
+Namespace(dataset='MNIST-FashionMNIST', test_bs=200, num_to_avg=5, validate=False, use_xent=False, method_name='cifar10_allconv_baseline', layers=40, widen_factor=2, droprate=0.3, load='./snapshots', ngpu=1, prefetch=1, out_as_pos=True, score='MSP', T=1.0, noise=0, type='OE', ft_epochs=99, ft_n=2048, regime='Balanced')
+Model restored!
+Error Rate 0.37
+
+
+Error Detection
+			cifar10_allconv_baseline
+FPR95:			90.56
+FPR99:			83.06
+AUROC:			98.58
+AUPR:			39.42
+Configuration: MNIST-FashionMNIST_Balanced_2048
+
+MNIST-FashionMNIST Detection
+
+[-0.9999924  -0.99999964 -0.9999471 ] [-0.1047698  -0.11382478 -0.1112131 ]
+				cifar10_allconv_baseline
+  TPR95 TPR99 AUROC AUPR
+100.00 & 100.00 & 100.00 & 100.00
+0.00 & 0.00 & 0.00 & 0.00

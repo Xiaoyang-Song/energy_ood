@@ -1,0 +1,30 @@
+Summary for MNIST with Balanced regime:
+AUC: 99.0800
+TPR95: 97.9500
+TPR99: 77.4000
+
+
+Summary for FashionMNIST with Balanced regime:
+AUC: 94.2200
+TPR95: 67.2900
+TPR99: 37.7200
+
+
+Summary for MNIST-FashionMNIST with Balanced regime:
+AUC: 98.1100
+TPR95: 91.6300
+TPR99: 57.6000
+
+
+Summary for SVHN with Balanced regime:
+AUC: 94.2000
+TPR95: 70.9400
+TPR99: 32.1400
+
+
+Summary for CIFAR10-SVHN with Balanced regime:
+AUC: 93.4300
+TPR95: 57.7200
+TPR99: 17.6700
+
+
