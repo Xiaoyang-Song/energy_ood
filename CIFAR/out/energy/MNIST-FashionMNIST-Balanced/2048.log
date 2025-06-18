@@ -4,7 +4,7 @@ torch.Size([20480, 1, 28, 28])
 Counter({0: 2048, 1: 2048, 2: 2048, 3: 2048, 4: 2048, 5: 2048, 6: 2048, 7: 2048, 8: 2048, 9: 2048})
 Tesla V100-PCIE-16GB
 Model restored!
-  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:23,  3.30it/s]  5%|▌         | 4/79 [00:00<00:06, 11.09it/s]  9%|▉         | 7/79 [00:00<00:04, 15.84it/s] 13%|█▎        | 10/79 [00:00<00:03, 19.00it/s] 16%|█▋        | 13/79 [00:00<00:03, 21.13it/s] 20%|██        | 16/79 [00:00<00:02, 22.60it/s] 24%|██▍       | 19/79 [00:01<00:02, 23.61it/s] 28%|██▊       | 22/79 [00:01<00:02, 24.32it/s] 32%|███▏      | 25/79 [00:01<00:02, 24.81it/s] 35%|███▌      | 28/79 [00:01<00:02, 25.16it/s] 39%|███▉      | 31/79 [00:01<00:01, 25.40it/s] 43%|████▎     | 34/79 [00:01<00:01, 25.58it/s] 47%|████▋     | 37/79 [00:01<00:01, 25.70it/s] 51%|█████     | 40/79 [00:01<00:01, 25.80it/s] 54%|█████▍    | 43/79 [00:01<00:01, 25.87it/s] 58%|█████▊    | 46/79 [00:02<00:01, 25.90it/s] 62%|██████▏   | 49/79 [00:02<00:01, 25.94it/s] 66%|██████▌   | 52/79 [00:02<00:01, 25.96it/s] 70%|██████▉   | 55/79 [00:02<00:00, 25.98it/s] 73%|███████▎  | 58/79 [00:02<00:00, 25.99it/s] 77%|███████▋  | 61/79 [00:02<00:00, 26.00it/s] 81%|████████  | 64/79 [00:02<00:00, 26.01it/s] 85%|████████▍ | 67/79 [00:02<00:00, 26.01it/s] 89%|████████▊ | 70/79 [00:02<00:00, 26.01it/s] 92%|█████████▏| 73/79 [00:03<00:00, 26.01it/s] 96%|█████████▌| 76/79 [00:03<00:00, 26.02it/s]100%|██████████| 79/79 [00:03<00:00, 23.98it/s]
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:20,  3.88it/s]  5%|▌         | 4/79 [00:00<00:05, 12.57it/s]  9%|▉         | 7/79 [00:00<00:04, 17.62it/s] 13%|█▎        | 10/79 [00:00<00:03, 20.86it/s] 16%|█▋        | 13/79 [00:00<00:02, 22.99it/s] 20%|██        | 16/79 [00:00<00:02, 24.43it/s] 24%|██▍       | 19/79 [00:00<00:02, 25.41it/s] 28%|██▊       | 22/79 [00:01<00:02, 26.10it/s] 32%|███▏      | 25/79 [00:01<00:02, 26.58it/s] 35%|███▌      | 28/79 [00:01<00:01, 26.91it/s] 39%|███▉      | 31/79 [00:01<00:01, 27.13it/s] 43%|████▎     | 34/79 [00:01<00:01, 27.30it/s] 47%|████▋     | 37/79 [00:01<00:01, 27.41it/s] 51%|█████     | 40/79 [00:01<00:01, 27.49it/s] 54%|█████▍    | 43/79 [00:01<00:01, 27.56it/s] 58%|█████▊    | 46/79 [00:01<00:01, 27.58it/s] 62%|██████▏   | 49/79 [00:02<00:01, 27.61it/s] 66%|██████▌   | 52/79 [00:02<00:00, 27.64it/s] 70%|██████▉   | 55/79 [00:02<00:00, 27.67it/s] 73%|███████▎  | 58/79 [00:02<00:00, 27.68it/s] 77%|███████▋  | 61/79 [00:02<00:00, 27.70it/s] 81%|████████  | 64/79 [00:02<00:00, 27.71it/s] 85%|████████▍ | 67/79 [00:02<00:00, 27.71it/s] 89%|████████▊ | 70/79 [00:02<00:00, 27.71it/s] 92%|█████████▏| 73/79 [00:02<00:00, 27.72it/s] 96%|█████████▌| 76/79 [00:02<00:00, 27.71it/s]100%|██████████| 79/79 [00:03<00:00, 25.80it/s]
 0.9961431962025317
 0.01404102721002507
 0.9961000000000004
@@ -12,83 +12,3 @@ Beginning Training
 
 /home/xysong/.conda/envs/OoD/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:131: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
   warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
-Epoch   1 | Time    23 | Train Loss 0.4257 | Test Loss 0.027 | Test Error 0.40
-Epoch   2 | Time    22 | Train Loss 0.1135 | Test Loss 0.026 | Test Error 0.33
-Epoch   3 | Time    22 | Train Loss 0.0735 | Test Loss 0.029 | Test Error 0.35
-Epoch   4 | Time    22 | Train Loss 0.0508 | Test Loss 0.027 | Test Error 0.36
-Epoch   5 | Time    22 | Train Loss 0.0250 | Test Loss 0.029 | Test Error 0.38
-Epoch   6 | Time    22 | Train Loss 0.0616 | Test Loss 0.031 | Test Error 0.38
-Epoch   7 | Time    22 | Train Loss 0.0232 | Test Loss 0.031 | Test Error 0.37
-Epoch   8 | Time    22 | Train Loss 0.0203 | Test Loss 0.032 | Test Error 0.39
-Epoch   9 | Time    22 | Train Loss 0.0159 | Test Loss 0.032 | Test Error 0.40
-Epoch  10 | Time    22 | Train Loss 0.0144 | Test Loss 0.034 | Test Error 0.41
-Epoch  11 | Time    22 | Train Loss 0.0091 | Test Loss 0.036 | Test Error 0.39
-Epoch  12 | Time    22 | Train Loss 0.0112 | Test Loss 0.034 | Test Error 0.41
-Epoch  13 | Time    22 | Train Loss 0.0073 | Test Loss 0.036 | Test Error 0.40
-Epoch  14 | Time    22 | Train Loss 0.0060 | Test Loss 0.034 | Test Error 0.40
-Epoch  15 | Time    22 | Train Loss 0.0039 | Test Loss 0.036 | Test Error 0.39
-Epoch  16 | Time    22 | Train Loss 0.0058 | Test Loss 0.038 | Test Error 0.37
-Epoch  17 | Time    22 | Train Loss 0.0064 | Test Loss 0.038 | Test Error 0.37
-Epoch  18 | Time    22 | Train Loss 0.0068 | Test Loss 0.036 | Test Error 0.38
-Epoch  19 | Time    22 | Train Loss 0.0014 | Test Loss 0.035 | Test Error 0.38
-Epoch  20 | Time    22 | Train Loss 0.0097 | Test Loss 0.036 | Test Error 0.37
-Epoch  21 | Time    22 | Train Loss 0.0040 | Test Loss 0.033 | Test Error 0.37
-Epoch  22 | Time    22 | Train Loss 0.0025 | Test Loss 0.035 | Test Error 0.38
-Epoch  23 | Time    22 | Train Loss 0.0060 | Test Loss 0.035 | Test Error 0.39
-Epoch  24 | Time    22 | Train Loss 0.0015 | Test Loss 0.036 | Test Error 0.40
-Epoch  25 | Time    22 | Train Loss 0.0019 | Test Loss 0.036 | Test Error 0.40
-Epoch  26 | Time    22 | Train Loss 0.0022 | Test Loss 0.034 | Test Error 0.38
-Epoch  27 | Time    22 | Train Loss 0.0054 | Test Loss 0.035 | Test Error 0.39
-Epoch  28 | Time    22 | Train Loss 0.0018 | Test Loss 0.037 | Test Error 0.38
-Epoch  29 | Time    22 | Train Loss 0.0040 | Test Loss 0.036 | Test Error 0.39
-Epoch  30 | Time    22 | Train Loss 0.0019 | Test Loss 0.037 | Test Error 0.39
-Epoch  31 | Time    22 | Train Loss 0.0047 | Test Loss 0.036 | Test Error 0.38
-Epoch  32 | Time    23 | Train Loss 0.0019 | Test Loss 0.036 | Test Error 0.41
-Epoch  33 | Time    22 | Train Loss 0.0054 | Test Loss 0.035 | Test Error 0.39
-Epoch  34 | Time    22 | Train Loss 0.0030 | Test Loss 0.034 | Test Error 0.38
-Epoch  35 | Time    22 | Train Loss 0.0013 | Test Loss 0.034 | Test Error 0.40
-Epoch  36 | Time    22 | Train Loss 0.0020 | Test Loss 0.035 | Test Error 0.41
-Epoch  37 | Time    22 | Train Loss 0.0025 | Test Loss 0.035 | Test Error 0.38
-Epoch  38 | Time    22 | Train Loss 0.0022 | Test Loss 0.036 | Test Error 0.42
-Epoch  39 | Time    22 | Train Loss 0.0014 | Test Loss 0.038 | Test Error 0.39
-Epoch  40 | Time    22 | Train Loss 0.0036 | Test Loss 0.035 | Test Error 0.37
-Epoch  41 | Time    22 | Train Loss 0.0026 | Test Loss 0.037 | Test Error 0.40
-Epoch  42 | Time    22 | Train Loss 0.0039 | Test Loss 0.035 | Test Error 0.37
-Epoch  43 | Time    22 | Train Loss 0.0015 | Test Loss 0.035 | Test Error 0.36
-Epoch  44 | Time    22 | Train Loss 0.0066 | Test Loss 0.036 | Test Error 0.36
-Epoch  45 | Time    22 | Train Loss 0.0014 | Test Loss 0.036 | Test Error 0.37
-Epoch  46 | Time    22 | Train Loss 0.0009 | Test Loss 0.035 | Test Error 0.37
-Epoch  47 | Time    22 | Train Loss 0.0008 | Test Loss 0.035 | Test Error 0.40
-Epoch  48 | Time    22 | Train Loss 0.0004 | Test Loss 0.036 | Test Error 0.42
-Epoch  49 | Time    22 | Train Loss 0.0020 | Test Loss 0.034 | Test Error 0.40
-Epoch  50 | Time    22 | Train Loss 0.0018 | Test Loss 0.035 | Test Error 0.40
-Epoch  51 | Time    22 | Train Loss 0.0004 | Test Loss 0.035 | Test Error 0.41
-Epoch  52 | Time    22 | Train Loss 0.0021 | Test Loss 0.035 | Test Error 0.40
-Epoch  53 | Time    22 | Train Loss 0.0019 | Test Loss 0.036 | Test Error 0.39
-Epoch  54 | Time    22 | Train Loss 0.0027 | Test Loss 0.037 | Test Error 0.41
-Epoch  55 | Time    22 | Train Loss 0.0002 | Test Loss 0.035 | Test Error 0.40
-Epoch  56 | Time    22 | Train Loss 0.0006 | Test Loss 0.035 | Test Error 0.37
-Epoch  57 | Time    22 | Train Loss 0.0009 | Test Loss 0.034 | Test Error 0.36
-Epoch  58 | Time    22 | Train Loss 0.0016 | Test Loss 0.033 | Test Error 0.35
-Epoch  59 | Time    22 | Train Loss 0.0014 | Test Loss 0.035 | Test Error 0.38
-Epoch  60 | Time    23 | Train Loss 0.0021 | Test Loss 0.036 | Test Error 0.40
-Epoch  61 | Time    22 | Train Loss 0.0012 | Test Loss 0.035 | Test Error 0.42
-Epoch  62 | Time    22 | Train Loss 0.0005 | Test Loss 0.034 | Test Error 0.38
-Epoch  63 | Time    22 | Train Loss 0.0004 | Test Loss 0.033 | Test Error 0.41
-Epoch  64 | Time    22 | Train Loss 0.0008 | Test Loss 0.034 | Test Error 0.41
-Epoch  65 | Time    22 | Train Loss 0.0014 | Test Loss 0.035 | Test Error 0.38
-Epoch  66 | Time    22 | Train Loss 0.0006 | Test Loss 0.036 | Test Error 0.40
-Epoch  67 | Time    22 | Train Loss 0.0006 | Test Loss 0.037 | Test Error 0.38
-Epoch  68 | Time    22 | Train Loss 0.0025 | Test Loss 0.037 | Test Error 0.36
-Epoch  69 | Time    22 | Train Loss 0.0006 | Test Loss 0.034 | Test Error 0.41
-Epoch  70 | Time    22 | Train Loss 0.0037 | Test Loss 0.034 | Test Error 0.38
-Epoch  71 | Time    22 | Train Loss 0.0041 | Test Loss 0.034 | Test Error 0.38
-Epoch  72 | Time    22 | Train Loss 0.0003 | Test Loss 0.034 | Test Error 0.39
-Epoch  73 | Time    22 | Train Loss 0.0009 | Test Loss 0.034 | Test Error 0.39
-Epoch  74 | Time    22 | Train Loss 0.0005 | Test Loss 0.035 | Test Error 0.36
-Epoch  75 | Time    22 | Train Loss 0.0016 | Test Loss 0.035 | Test Error 0.36
-Epoch  76 | Time    22 | Train Loss 0.0006 | Test Loss 0.036 | Test Error 0.36
-Epoch  77 | Time    22 | Train Loss 0.0012 | Test Loss 0.034 | Test Error 0.35
-Epoch  78 | Time    22 | Train Loss 0.0059 | Test Loss 0.035 | Test Error 0.37
-Epoch  79 | Time    22 | Train Loss 0.0009 | Test Loss 0.036 | Test Error 0.37
-slurmstepd: error: *** JOB 27010098 ON gl1016 CANCELLED AT 2025-06-17T19:25:32 DUE TO TIME LIMIT ***

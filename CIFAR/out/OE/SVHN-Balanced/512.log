@@ -80,3 +80,62 @@ Epoch  62 | Time     7 | Train Loss 0.7229 | Test Loss 0.180 | Test Error 3.78
 Epoch  63 | Time     7 | Train Loss 0.7167 | Test Loss 0.180 | Test Error 3.78
 Epoch  64 | Time     7 | Train Loss 0.7243 | Test Loss 0.180 | Test Error 3.78
 Epoch  65 | Time     7 | Train Loss 0.7221 | Test Loss 0.179 | Test Error 3.78
+Epoch  66 | Time     7 | Train Loss 0.7168 | Test Loss 0.179 | Test Error 3.78
+Epoch  67 | Time     7 | Train Loss 0.7153 | Test Loss 0.179 | Test Error 3.79
+Epoch  68 | Time     7 | Train Loss 0.7098 | Test Loss 0.179 | Test Error 3.81
+Epoch  69 | Time     7 | Train Loss 0.7151 | Test Loss 0.179 | Test Error 3.77
+Epoch  70 | Time     7 | Train Loss 0.7090 | Test Loss 0.179 | Test Error 3.79
+Epoch  71 | Time     7 | Train Loss 0.7126 | Test Loss 0.178 | Test Error 3.79
+Epoch  72 | Time     7 | Train Loss 0.7127 | Test Loss 0.178 | Test Error 3.80
+Epoch  73 | Time     7 | Train Loss 0.7070 | Test Loss 0.178 | Test Error 3.81
+Epoch  74 | Time     7 | Train Loss 0.7040 | Test Loss 0.177 | Test Error 3.80
+Epoch  75 | Time     7 | Train Loss 0.7047 | Test Loss 0.178 | Test Error 3.79
+Epoch  76 | Time     7 | Train Loss 0.7066 | Test Loss 0.178 | Test Error 3.80
+Epoch  77 | Time     7 | Train Loss 0.7053 | Test Loss 0.177 | Test Error 3.78
+Epoch  78 | Time     7 | Train Loss 0.7075 | Test Loss 0.178 | Test Error 3.79
+Epoch  79 | Time     7 | Train Loss 0.7034 | Test Loss 0.177 | Test Error 3.79
+Epoch  80 | Time     7 | Train Loss 0.6997 | Test Loss 0.177 | Test Error 3.80
+Epoch  81 | Time     7 | Train Loss 0.7020 | Test Loss 0.176 | Test Error 3.80
+Epoch  82 | Time     7 | Train Loss 0.6984 | Test Loss 0.175 | Test Error 3.81
+Epoch  83 | Time     7 | Train Loss 0.7047 | Test Loss 0.176 | Test Error 3.79
+Epoch  84 | Time     7 | Train Loss 0.6994 | Test Loss 0.176 | Test Error 3.80
+Epoch  85 | Time     7 | Train Loss 0.6985 | Test Loss 0.176 | Test Error 3.82
+Epoch  86 | Time     7 | Train Loss 0.6982 | Test Loss 0.176 | Test Error 3.78
+Epoch  87 | Time     7 | Train Loss 0.6937 | Test Loss 0.175 | Test Error 3.78
+Epoch  88 | Time     7 | Train Loss 0.6942 | Test Loss 0.174 | Test Error 3.79
+Epoch  89 | Time     7 | Train Loss 0.6940 | Test Loss 0.176 | Test Error 3.78
+Epoch  90 | Time     7 | Train Loss 0.6933 | Test Loss 0.175 | Test Error 3.79
+Epoch  91 | Time     7 | Train Loss 0.6900 | Test Loss 0.175 | Test Error 3.80
+Epoch  92 | Time     7 | Train Loss 0.6921 | Test Loss 0.175 | Test Error 3.77
+Epoch  93 | Time     7 | Train Loss 0.6918 | Test Loss 0.175 | Test Error 3.79
+Epoch  94 | Time     7 | Train Loss 0.6912 | Test Loss 0.174 | Test Error 3.78
+Epoch  95 | Time     7 | Train Loss 0.6875 | Test Loss 0.174 | Test Error 3.78
+Epoch  96 | Time     7 | Train Loss 0.6898 | Test Loss 0.173 | Test Error 3.78
+Epoch  97 | Time     7 | Train Loss 0.6880 | Test Loss 0.173 | Test Error 3.79
+Epoch  98 | Time     7 | Train Loss 0.6890 | Test Loss 0.174 | Test Error 3.80
+Epoch  99 | Time     7 | Train Loss 0.6937 | Test Loss 0.174 | Test Error 3.79
+Epoch 100 | Time     7 | Train Loss 0.6875 | Test Loss 0.173 | Test Error 3.79
+ic| len(dset): 73257
+ic| len(dset): 26032
+Namespace(dataset='SVHN', test_bs=200, num_to_avg=5, validate=False, use_xent=False, method_name='cifar10_allconv_baseline', layers=40, widen_factor=2, droprate=0.3, load='./snapshots', ngpu=1, prefetch=1, out_as_pos=True, score='MSP', T=1.0, noise=0, type='OE', ft_epochs=99, ft_n=512, regime='Balanced')
+Using downloaded and verified file: ./Datasets/SVHN/train_32x32.mat
+Using downloaded and verified file: ./Datasets/SVHN/test_32x32.mat
+Model restored!
+Error Rate 3.79
+
+
+Error Detection
+			cifar10_allconv_baseline
+FPR95:			48.98
+FPR99:			17.49
+AUROC:			88.61
+AUPR:			38.29
+Configuration: SVHN_Balanced_512
+
+SVHN Detection
+
+[-0.9494115  -0.94362813 -0.9970215 ] [-0.5044318  -0.33097252 -0.44910276]
+				cifar10_allconv_baseline
+  TPR95 TPR99 AUROC AUPR
+93.34 & 80.00 & 98.44 & 91.44
+0.00 & 0.00 & 0.00 & 0.00

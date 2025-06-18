@@ -41,3 +41,19 @@ Epoch  26 | Time    40 | Train Loss 1.1545 | Test Loss 0.014 | Test Error 0.34
 Epoch  27 | Time    40 | Train Loss 1.1587 | Test Loss 0.014 | Test Error 0.33
 Epoch  28 | Time    40 | Train Loss 1.1535 | Test Loss 0.014 | Test Error 0.34
 Epoch  29 | Time    40 | Train Loss 1.1535 | Test Loss 0.014 | Test Error 0.32
+Epoch  30 | Time    40 | Train Loss 1.1543 | Test Loss 0.015 | Test Error 0.32
+Epoch  31 | Time    40 | Train Loss 1.1537 | Test Loss 0.014 | Test Error 0.34
+Epoch  32 | Time    40 | Train Loss 1.1538 | Test Loss 0.014 | Test Error 0.34
+Epoch  33 | Time    40 | Train Loss 1.1541 | Test Loss 0.014 | Test Error 0.36
+Epoch  34 | Time    40 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.33
+Epoch  35 | Time    40 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.34
+Epoch  36 | Time    40 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.32
+Epoch  37 | Time    40 | Train Loss 1.1534 | Test Loss 0.014 | Test Error 0.33
+Epoch  38 | Time    40 | Train Loss 1.1539 | Test Loss 0.014 | Test Error 0.35
+Epoch  39 | Time    40 | Train Loss 1.1550 | Test Loss 0.014 | Test Error 0.35
+Epoch  40 | Time    40 | Train Loss 1.1531 | Test Loss 0.014 | Test Error 0.39
+Epoch  41 | Time    40 | Train Loss 1.1537 | Test Loss 0.014 | Test Error 0.36
+Epoch  42 | Time    40 | Train Loss 1.1528 | Test Loss 0.015 | Test Error 0.37
+Epoch  43 | Time    40 | Train Loss 1.1531 | Test Loss 0.014 | Test Error 0.32
+Epoch  44 | Time    40 | Train Loss 1.1532 | Test Loss 0.014 | Test Error 0.36
+slurmstepd: error: *** JOB 27010159 ON gl1021 CANCELLED AT 2025-06-17T20:30:04 DUE TO TIME LIMIT ***

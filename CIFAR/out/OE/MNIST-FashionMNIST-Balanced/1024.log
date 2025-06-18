@@ -107,3 +107,29 @@ Epoch  92 | Time    12 | Train Loss 1.1545 | Test Loss 0.014 | Test Error 0.33
 Epoch  93 | Time    12 | Train Loss 1.1545 | Test Loss 0.014 | Test Error 0.32
 Epoch  94 | Time    12 | Train Loss 1.1547 | Test Loss 0.014 | Test Error 0.32
 Epoch  95 | Time    12 | Train Loss 1.1542 | Test Loss 0.014 | Test Error 0.34
+Epoch  96 | Time    12 | Train Loss 1.1547 | Test Loss 0.014 | Test Error 0.34
+Epoch  97 | Time    12 | Train Loss 1.1548 | Test Loss 0.014 | Test Error 0.33
+Epoch  98 | Time    12 | Train Loss 1.1546 | Test Loss 0.014 | Test Error 0.34
+Epoch  99 | Time    12 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.35
+Epoch 100 | Time    12 | Train Loss 1.1540 | Test Loss 0.014 | Test Error 0.34
+ic| len(dset): 60000
+Namespace(dataset='MNIST-FashionMNIST', test_bs=200, num_to_avg=5, validate=False, use_xent=False, method_name='cifar10_allconv_baseline', layers=40, widen_factor=2, droprate=0.3, load='./snapshots', ngpu=1, prefetch=1, out_as_pos=True, score='MSP', T=1.0, noise=0, type='OE', ft_epochs=99, ft_n=1024, regime='Balanced')
+Model restored!
+Error Rate 0.34
+
+
+Error Detection
+			cifar10_allconv_baseline
+FPR95:			89.62
+FPR99:			87.18
+AUROC:			98.45
+AUPR:			27.11
+Configuration: MNIST-FashionMNIST_Balanced_1024
+
+MNIST-FashionMNIST Detection
+
+[-0.99999475 -0.99999976 -0.999964  ] [-0.115624   -0.11738973 -0.10848194]
+				cifar10_allconv_baseline
+  TPR95 TPR99 AUROC AUPR
+100.00 & 100.00 & 100.00 & 100.00
+0.00 & 0.00 & 0.00 & 0.00
