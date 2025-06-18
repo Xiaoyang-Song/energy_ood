@@ -1,0 +1,48 @@
+ic| len(dset): 73257
+ic| len(dset): 26032
+{'dataset': 'SVHN', 'model': 'densenet', 'calibration': False, 'epochs': 100, 'learning_rate': 0.001, 'batch_size': 128, 'oe_batch_size': 256, 'test_bs': 200, 'momentum': 0.9, 'decay': 0.0005, 'layers': 40, 'widen_factor': 2, 'droprate': 0.3, 'save': './snapshots/oe_tune', 'load': './snapshots/pretrained', 'test': False, 'ngpu': 1, 'prefetch': 1, 'm_in': -25.0, 'm_out': -7.0, 'score': 'OE', 'seed': 1, 'regime': 'Balanced', 'n_ood': 2048}
+Using downloaded and verified file: ./Datasets/SVHN/train_32x32.mat
+Using downloaded and verified file: ./Datasets/SVHN/test_32x32.mat
+torch.Size([4096, 3, 32, 32])
+Counter({8: 2048, 9: 2048})
+Tesla V100-PCIE-16GB
+Model restored!
+  0%|          | 0/178 [00:00<?, ?it/s]  1%|          | 1/178 [00:00<00:44,  3.95it/s]  2%|▏         | 4/178 [00:00<00:13, 13.10it/s]  4%|▍         | 7/178 [00:00<00:09, 18.63it/s]  6%|▌         | 10/178 [00:00<00:07, 22.19it/s]  7%|▋         | 13/178 [00:00<00:06, 24.54it/s]  9%|▉         | 16/178 [00:00<00:06, 26.12it/s] 11%|█         | 19/178 [00:00<00:05, 27.19it/s] 12%|█▏        | 22/178 [00:00<00:05, 27.92it/s] 14%|█▍        | 25/178 [00:01<00:05, 28.43it/s] 16%|█▌        | 28/178 [00:01<00:05, 28.77it/s] 17%|█▋        | 31/178 [00:01<00:05, 29.03it/s] 19%|█▉        | 34/178 [00:01<00:04, 29.21it/s] 21%|██        | 37/178 [00:01<00:04, 29.32it/s] 22%|██▏       | 40/178 [00:01<00:04, 29.40it/s] 24%|██▍       | 43/178 [00:01<00:04, 29.46it/s] 26%|██▌       | 46/178 [00:01<00:04, 29.50it/s] 28%|██▊       | 49/178 [00:01<00:04, 29.51it/s] 29%|██▉       | 52/178 [00:01<00:04, 29.52it/s] 31%|███       | 55/178 [00:02<00:04, 29.55it/s] 33%|███▎      | 58/178 [00:02<00:04, 29.58it/s] 34%|███▍      | 61/178 [00:02<00:03, 29.60it/s] 36%|███▌      | 64/178 [00:02<00:03, 29.61it/s] 38%|███▊      | 67/178 [00:02<00:03, 29.62it/s] 39%|███▉      | 70/178 [00:02<00:03, 29.60it/s] 41%|████      | 73/178 [00:02<00:03, 29.56it/s] 43%|████▎     | 76/178 [00:02<00:03, 29.55it/s] 44%|████▍     | 79/178 [00:02<00:03, 29.58it/s] 46%|████▌     | 82/178 [00:02<00:03, 29.54it/s] 48%|████▊     | 85/178 [00:03<00:03, 29.50it/s] 49%|████▉     | 88/178 [00:03<00:03, 29.50it/s] 51%|█████     | 91/178 [00:03<00:02, 29.53it/s] 53%|█████▎    | 94/178 [00:03<00:02, 29.53it/s] 54%|█████▍    | 97/178 [00:03<00:02, 29.55it/s] 56%|█████▌    | 100/178 [00:03<00:02, 29.57it/s] 58%|█████▊    | 103/178 [00:03<00:02, 29.58it/s] 60%|█████▉    | 106/178 [00:03<00:02, 29.58it/s] 61%|██████    | 109/178 [00:03<00:02, 29.58it/s] 63%|██████▎   | 112/178 [00:04<00:02, 29.60it/s] 65%|██████▍   | 115/178 [00:04<00:02, 29.60it/s] 66%|██████▋   | 118/178 [00:04<00:02, 29.59it/s] 68%|██████▊   | 121/178 [00:04<00:01, 29.59it/s] 70%|██████▉   | 124/178 [00:04<00:01, 29.60it/s] 71%|███████▏  | 127/178 [00:04<00:01, 29.58it/s] 73%|███████▎  | 130/178 [00:04<00:01, 29.56it/s] 75%|███████▍  | 133/178 [00:04<00:01, 29.58it/s] 76%|███████▋  | 136/178 [00:04<00:01, 29.58it/s] 78%|███████▊  | 139/178 [00:04<00:01, 29.59it/s] 80%|███████▉  | 142/178 [00:05<00:01, 29.58it/s] 81%|████████▏ | 145/178 [00:05<00:01, 29.57it/s] 83%|████████▎ | 148/178 [00:05<00:01, 29.58it/s] 85%|████████▍ | 151/178 [00:05<00:00, 29.59it/s] 87%|████████▋ | 154/178 [00:05<00:00, 29.59it/s] 88%|████████▊ | 157/178 [00:05<00:00, 29.61it/s] 90%|████████▉ | 160/178 [00:05<00:00, 29.61it/s] 92%|█████████▏| 163/178 [00:05<00:00, 29.61it/s] 93%|█████████▎| 166/178 [00:05<00:00, 29.42it/s] 95%|█████████▍| 169/178 [00:05<00:00, 29.48it/s] 97%|█████████▋| 172/178 [00:06<00:00, 29.47it/s] 98%|█████████▊| 175/178 [00:06<00:00, 29.50it/s]100%|██████████| 178/178 [00:06<00:00, 29.54it/s]100%|██████████| 178/178 [00:06<00:00, 28.51it/s]
+0.9672526464852819
+0.17304642781683274
+0.9672476621152918
+Beginning Training
+
+/home/xysong/.conda/envs/OoD/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:131: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+Epoch   1 | Time    12 | Train Loss 2.5727 | Test Loss 0.177 | Test Error 3.22
+Epoch   2 | Time    10 | Train Loss 2.2333 | Test Loss 0.173 | Test Error 3.23
+Epoch   3 | Time    10 | Train Loss 1.9561 | Test Loss 0.174 | Test Error 3.30
+Epoch   4 | Time    10 | Train Loss 1.7588 | Test Loss 0.175 | Test Error 3.42
+Epoch   5 | Time    10 | Train Loss 1.6152 | Test Loss 0.177 | Test Error 3.46
+Epoch   6 | Time    11 | Train Loss 1.5169 | Test Loss 0.178 | Test Error 3.60
+Epoch   7 | Time    10 | Train Loss 1.4514 | Test Loss 0.178 | Test Error 3.71
+Epoch   8 | Time    10 | Train Loss 1.3992 | Test Loss 0.178 | Test Error 3.77
+Epoch   9 | Time    10 | Train Loss 1.3586 | Test Loss 0.178 | Test Error 3.79
+Epoch  10 | Time    10 | Train Loss 1.3307 | Test Loss 0.177 | Test Error 3.82
+Epoch  11 | Time    10 | Train Loss 1.3131 | Test Loss 0.177 | Test Error 3.85
+Epoch  12 | Time    10 | Train Loss 1.2882 | Test Loss 0.176 | Test Error 3.89
+Epoch  13 | Time    10 | Train Loss 1.2703 | Test Loss 0.175 | Test Error 3.88
+Epoch  14 | Time    10 | Train Loss 1.2596 | Test Loss 0.174 | Test Error 3.87
+Epoch  15 | Time    10 | Train Loss 1.2463 | Test Loss 0.174 | Test Error 3.82
+Epoch  16 | Time    10 | Train Loss 1.2334 | Test Loss 0.173 | Test Error 3.82
+Epoch  17 | Time    10 | Train Loss 1.2257 | Test Loss 0.173 | Test Error 3.82
+Epoch  18 | Time    13 | Train Loss 1.2213 | Test Loss 0.172 | Test Error 3.86
+Epoch  19 | Time    10 | Train Loss 1.2098 | Test Loss 0.171 | Test Error 3.86
+Epoch  20 | Time    10 | Train Loss 1.2040 | Test Loss 0.170 | Test Error 3.89
+Epoch  21 | Time    10 | Train Loss 1.2012 | Test Loss 0.170 | Test Error 3.86
+Epoch  22 | Time    10 | Train Loss 1.1929 | Test Loss 0.169 | Test Error 3.83
+Epoch  23 | Time    10 | Train Loss 1.1893 | Test Loss 0.168 | Test Error 3.83
+Epoch  24 | Time    10 | Train Loss 1.1847 | Test Loss 0.168 | Test Error 3.81
+Epoch  25 | Time    11 | Train Loss 1.1788 | Test Loss 0.167 | Test Error 3.81
+Epoch  26 | Time    10 | Train Loss 1.1764 | Test Loss 0.167 | Test Error 3.80
+Epoch  27 | Time    11 | Train Loss 1.1725 | Test Loss 0.166 | Test Error 3.79
+Epoch  28 | Time    10 | Train Loss 1.1714 | Test Loss 0.165 | Test Error 3.81
+Epoch  29 | Time    10 | Train Loss 1.1676 | Test Loss 0.165 | Test Error 3.78
+Epoch  30 | Time    10 | Train Loss 1.1629 | Test Loss 0.164 | Test Error 3.78
+Epoch  31 | Time    10 | Train Loss 1.1546 | Test Loss 0.163 | Test Error 3.78

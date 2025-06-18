@@ -12,4 +12,4 @@
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/energy_ood/CIFAR/out/pre-training/cifar10-svhn.log
 
 
-python classifier_train.py --dataset CIFAR10-SVHN --max_epochs 300 --lr 0.1 --opt sgd
+python classifier_train.py --dataset CIFAR10-SVHN --max_epochs 100 --lr 0.1 --opt sgd

@@ -18,8 +18,6 @@ args = parser.parse_args()
 ACCOUNT = 'sunwbgt0'
 # TIME = "00:00:00"
 TIME = args.time
-
-
 regime=args.regime
 EXP_DSET = args.exp
 DIR_NAME = args.dir

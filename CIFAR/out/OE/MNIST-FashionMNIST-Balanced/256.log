@@ -1,0 +1,135 @@
+ic| len(dset): 60000
+{'dataset': 'MNIST-FashionMNIST', 'model': 'densenet', 'calibration': False, 'epochs': 100, 'learning_rate': 0.001, 'batch_size': 128, 'oe_batch_size': 256, 'test_bs': 200, 'momentum': 0.9, 'decay': 0.0005, 'layers': 40, 'widen_factor': 2, 'droprate': 0.3, 'save': './snapshots/oe_tune', 'load': './snapshots/pretrained', 'test': False, 'ngpu': 1, 'prefetch': 1, 'm_in': -25.0, 'm_out': -7.0, 'score': 'OE', 'seed': 1, 'regime': 'Balanced', 'n_ood': 256}
+torch.Size([2560, 1, 28, 28])
+Counter({0: 256, 1: 256, 2: 256, 3: 256, 4: 256, 5: 256, 6: 256, 7: 256, 8: 256, 9: 256})
+Tesla V100-PCIE-16GB
+Model restored!
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:23,  3.30it/s]  5%|▌         | 4/79 [00:00<00:06, 11.20it/s]  9%|▉         | 7/79 [00:00<00:04, 16.08it/s] 13%|█▎        | 10/79 [00:00<00:03, 19.23it/s] 16%|█▋        | 13/79 [00:00<00:03, 21.31it/s] 20%|██        | 16/79 [00:00<00:02, 22.58it/s] 24%|██▍       | 19/79 [00:01<00:02, 23.60it/s] 28%|██▊       | 22/79 [00:01<00:02, 24.32it/s] 32%|███▏      | 25/79 [00:01<00:02, 24.82it/s] 35%|███▌      | 28/79 [00:01<00:02, 25.16it/s] 39%|███▉      | 31/79 [00:01<00:01, 25.42it/s] 43%|████▎     | 34/79 [00:01<00:01, 25.60it/s] 47%|████▋     | 37/79 [00:01<00:01, 25.72it/s] 51%|█████     | 40/79 [00:01<00:01, 25.81it/s] 54%|█████▍    | 43/79 [00:01<00:01, 25.86it/s] 58%|█████▊    | 46/79 [00:02<00:01, 25.92it/s] 62%|██████▏   | 49/79 [00:02<00:01, 25.95it/s] 66%|██████▌   | 52/79 [00:02<00:01, 25.97it/s] 70%|██████▉   | 55/79 [00:02<00:00, 25.80it/s] 73%|███████▎  | 58/79 [00:02<00:00, 25.86it/s] 77%|███████▋  | 61/79 [00:02<00:00, 25.91it/s] 81%|████████  | 64/79 [00:02<00:00, 25.96it/s] 85%|████████▍ | 67/79 [00:02<00:00, 25.98it/s] 89%|████████▊ | 70/79 [00:02<00:00, 25.99it/s] 92%|█████████▏| 73/79 [00:03<00:00, 26.00it/s] 96%|█████████▌| 76/79 [00:03<00:00, 26.01it/s]100%|██████████| 79/79 [00:03<00:00, 24.01it/s]
+0.9961431962025317
+0.01404102721002507
+0.9961000000000004
+Beginning Training
+
+/home/xysong/.conda/envs/OoD/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:131: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+Epoch   1 | Time     7 | Train Loss 2.1150 | Test Loss 0.013 | Test Error 0.38
+Epoch   2 | Time     5 | Train Loss 1.8262 | Test Loss 0.015 | Test Error 0.40
+Epoch   3 | Time     5 | Train Loss 1.6046 | Test Loss 0.015 | Test Error 0.38
+Epoch   4 | Time     5 | Train Loss 1.4776 | Test Loss 0.014 | Test Error 0.35
+Epoch   5 | Time     5 | Train Loss 1.4012 | Test Loss 0.014 | Test Error 0.33
+Epoch   6 | Time     5 | Train Loss 1.3311 | Test Loss 0.014 | Test Error 0.29
+Epoch   7 | Time     7 | Train Loss 1.2864 | Test Loss 0.014 | Test Error 0.30
+Epoch   8 | Time     5 | Train Loss 1.2445 | Test Loss 0.014 | Test Error 0.31
+Epoch   9 | Time     5 | Train Loss 1.2176 | Test Loss 0.014 | Test Error 0.34
+Epoch  10 | Time     5 | Train Loss 1.1960 | Test Loss 0.014 | Test Error 0.34
+Epoch  11 | Time     5 | Train Loss 1.1758 | Test Loss 0.015 | Test Error 0.34
+Epoch  12 | Time     5 | Train Loss 1.1639 | Test Loss 0.015 | Test Error 0.35
+Epoch  13 | Time     5 | Train Loss 1.1491 | Test Loss 0.015 | Test Error 0.38
+Epoch  14 | Time     5 | Train Loss 1.1422 | Test Loss 0.014 | Test Error 0.35
+Epoch  15 | Time     5 | Train Loss 1.1264 | Test Loss 0.014 | Test Error 0.32
+Epoch  16 | Time     5 | Train Loss 1.1214 | Test Loss 0.014 | Test Error 0.34
+Epoch  17 | Time     5 | Train Loss 1.1168 | Test Loss 0.015 | Test Error 0.36
+Epoch  18 | Time     5 | Train Loss 1.1070 | Test Loss 0.015 | Test Error 0.37
+Epoch  19 | Time     5 | Train Loss 1.1006 | Test Loss 0.015 | Test Error 0.34
+Epoch  20 | Time     5 | Train Loss 1.0984 | Test Loss 0.016 | Test Error 0.36
+Epoch  21 | Time     5 | Train Loss 1.0953 | Test Loss 0.015 | Test Error 0.32
+Epoch  22 | Time     5 | Train Loss 1.1007 | Test Loss 0.015 | Test Error 0.30
+Epoch  23 | Time     5 | Train Loss 1.0876 | Test Loss 0.015 | Test Error 0.30
+Epoch  24 | Time     6 | Train Loss 1.0835 | Test Loss 0.015 | Test Error 0.35
+Epoch  25 | Time     5 | Train Loss 1.0805 | Test Loss 0.015 | Test Error 0.36
+Epoch  26 | Time     5 | Train Loss 1.0819 | Test Loss 0.015 | Test Error 0.34
+Epoch  27 | Time     7 | Train Loss 1.0773 | Test Loss 0.015 | Test Error 0.34
+Epoch  28 | Time     5 | Train Loss 1.0728 | Test Loss 0.015 | Test Error 0.36
+Epoch  29 | Time     5 | Train Loss 1.0704 | Test Loss 0.015 | Test Error 0.37
+Epoch  30 | Time     5 | Train Loss 1.0712 | Test Loss 0.015 | Test Error 0.34
+Epoch  31 | Time     5 | Train Loss 1.0690 | Test Loss 0.015 | Test Error 0.33
+Epoch  32 | Time     5 | Train Loss 1.0694 | Test Loss 0.015 | Test Error 0.32
+Epoch  33 | Time     5 | Train Loss 1.0636 | Test Loss 0.015 | Test Error 0.35
+Epoch  34 | Time     5 | Train Loss 1.0652 | Test Loss 0.014 | Test Error 0.33
+Epoch  35 | Time     5 | Train Loss 1.0633 | Test Loss 0.015 | Test Error 0.34
+Epoch  36 | Time     5 | Train Loss 1.0617 | Test Loss 0.015 | Test Error 0.33
+Epoch  37 | Time     5 | Train Loss 1.0610 | Test Loss 0.015 | Test Error 0.35
+Epoch  38 | Time     5 | Train Loss 1.0617 | Test Loss 0.015 | Test Error 0.33
+Epoch  39 | Time     5 | Train Loss 1.0593 | Test Loss 0.015 | Test Error 0.34
+Epoch  40 | Time     5 | Train Loss 1.0608 | Test Loss 0.014 | Test Error 0.37
+Epoch  41 | Time     5 | Train Loss 1.0563 | Test Loss 0.015 | Test Error 0.38
+Epoch  42 | Time     5 | Train Loss 1.0547 | Test Loss 0.015 | Test Error 0.33
+Epoch  43 | Time     5 | Train Loss 1.0539 | Test Loss 0.014 | Test Error 0.37
+Epoch  44 | Time     5 | Train Loss 1.0542 | Test Loss 0.014 | Test Error 0.31
+Epoch  45 | Time     5 | Train Loss 1.0511 | Test Loss 0.014 | Test Error 0.31
+Epoch  46 | Time     6 | Train Loss 1.0519 | Test Loss 0.014 | Test Error 0.31
+Epoch  47 | Time     5 | Train Loss 1.0525 | Test Loss 0.015 | Test Error 0.34
+Epoch  48 | Time     5 | Train Loss 1.0522 | Test Loss 0.014 | Test Error 0.34
+Epoch  49 | Time     6 | Train Loss 1.0509 | Test Loss 0.014 | Test Error 0.34
+Epoch  50 | Time     5 | Train Loss 1.0501 | Test Loss 0.014 | Test Error 0.33
+Epoch  51 | Time     5 | Train Loss 1.0479 | Test Loss 0.014 | Test Error 0.32
+Epoch  52 | Time     5 | Train Loss 1.0485 | Test Loss 0.014 | Test Error 0.34
+Epoch  53 | Time     5 | Train Loss 1.0471 | Test Loss 0.014 | Test Error 0.35
+Epoch  54 | Time     5 | Train Loss 1.0498 | Test Loss 0.014 | Test Error 0.32
+Epoch  55 | Time     5 | Train Loss 1.0494 | Test Loss 0.014 | Test Error 0.33
+Epoch  56 | Time     5 | Train Loss 1.0466 | Test Loss 0.015 | Test Error 0.35
+Epoch  57 | Time     5 | Train Loss 1.0444 | Test Loss 0.015 | Test Error 0.34
+Epoch  58 | Time     5 | Train Loss 1.0464 | Test Loss 0.015 | Test Error 0.35
+Epoch  59 | Time     5 | Train Loss 1.0464 | Test Loss 0.015 | Test Error 0.35
+Epoch  60 | Time     5 | Train Loss 1.0436 | Test Loss 0.014 | Test Error 0.35
+Epoch  61 | Time     5 | Train Loss 1.0457 | Test Loss 0.015 | Test Error 0.37
+Epoch  62 | Time     5 | Train Loss 1.0441 | Test Loss 0.015 | Test Error 0.36
+Epoch  63 | Time     5 | Train Loss 1.0499 | Test Loss 0.015 | Test Error 0.33
+Epoch  64 | Time     5 | Train Loss 1.0436 | Test Loss 0.015 | Test Error 0.33
+Epoch  65 | Time     5 | Train Loss 1.0433 | Test Loss 0.014 | Test Error 0.34
+Epoch  66 | Time     6 | Train Loss 1.0477 | Test Loss 0.014 | Test Error 0.34
+Epoch  67 | Time     5 | Train Loss 1.0426 | Test Loss 0.014 | Test Error 0.34
+Epoch  68 | Time     5 | Train Loss 1.0416 | Test Loss 0.014 | Test Error 0.34
+Epoch  69 | Time     5 | Train Loss 1.0436 | Test Loss 0.015 | Test Error 0.34
+Epoch  70 | Time     5 | Train Loss 1.0440 | Test Loss 0.015 | Test Error 0.33
+Epoch  71 | Time     5 | Train Loss 1.0420 | Test Loss 0.014 | Test Error 0.33
+Epoch  72 | Time     5 | Train Loss 1.0401 | Test Loss 0.014 | Test Error 0.33
+Epoch  73 | Time     5 | Train Loss 1.0419 | Test Loss 0.014 | Test Error 0.34
+Epoch  74 | Time     5 | Train Loss 1.0414 | Test Loss 0.014 | Test Error 0.33
+Epoch  75 | Time     5 | Train Loss 1.0425 | Test Loss 0.014 | Test Error 0.33
+Epoch  76 | Time     6 | Train Loss 1.0410 | Test Loss 0.014 | Test Error 0.32
+Epoch  77 | Time     5 | Train Loss 1.0404 | Test Loss 0.014 | Test Error 0.32
+Epoch  78 | Time     5 | Train Loss 1.0392 | Test Loss 0.014 | Test Error 0.32
+Epoch  79 | Time     5 | Train Loss 1.0394 | Test Loss 0.014 | Test Error 0.33
+Epoch  80 | Time     5 | Train Loss 1.0401 | Test Loss 0.014 | Test Error 0.33
+Epoch  81 | Time     5 | Train Loss 1.0395 | Test Loss 0.014 | Test Error 0.32
+Epoch  82 | Time     5 | Train Loss 1.0384 | Test Loss 0.014 | Test Error 0.31
+Epoch  83 | Time     5 | Train Loss 1.0408 | Test Loss 0.014 | Test Error 0.31
+Epoch  84 | Time     5 | Train Loss 1.0375 | Test Loss 0.014 | Test Error 0.34
+Epoch  85 | Time     5 | Train Loss 1.0410 | Test Loss 0.015 | Test Error 0.32
+Epoch  86 | Time     5 | Train Loss 1.0393 | Test Loss 0.014 | Test Error 0.30
+Epoch  87 | Time     5 | Train Loss 1.0380 | Test Loss 0.014 | Test Error 0.31
+Epoch  88 | Time     5 | Train Loss 1.0399 | Test Loss 0.014 | Test Error 0.31
+Epoch  89 | Time     6 | Train Loss 1.0374 | Test Loss 0.014 | Test Error 0.32
+Epoch  90 | Time     5 | Train Loss 1.0380 | Test Loss 0.015 | Test Error 0.32
+Epoch  91 | Time     5 | Train Loss 1.0383 | Test Loss 0.014 | Test Error 0.33
+Epoch  92 | Time     5 | Train Loss 1.0391 | Test Loss 0.014 | Test Error 0.32
+Epoch  93 | Time     5 | Train Loss 1.0378 | Test Loss 0.014 | Test Error 0.31
+Epoch  94 | Time     5 | Train Loss 1.0379 | Test Loss 0.014 | Test Error 0.34
+Epoch  95 | Time     5 | Train Loss 1.0378 | Test Loss 0.014 | Test Error 0.34
+Epoch  96 | Time     5 | Train Loss 1.0365 | Test Loss 0.014 | Test Error 0.34
+Epoch  97 | Time     5 | Train Loss 1.0377 | Test Loss 0.014 | Test Error 0.33
+Epoch  98 | Time     5 | Train Loss 1.0372 | Test Loss 0.014 | Test Error 0.33
+Epoch  99 | Time     5 | Train Loss 1.0393 | Test Loss 0.015 | Test Error 0.33
+Epoch 100 | Time     5 | Train Loss 1.0377 | Test Loss 0.015 | Test Error 0.33
+ic| len(dset): 60000
+Namespace(dataset='MNIST-FashionMNIST', test_bs=200, num_to_avg=5, validate=False, use_xent=False, method_name='cifar10_allconv_baseline', layers=40, widen_factor=2, droprate=0.3, load='./snapshots', ngpu=1, prefetch=1, out_as_pos=True, score='MSP', T=1.0, noise=0, type='OE', ft_epochs=99, ft_n=256, regime='Balanced')
+Model restored!
+Error Rate 0.33
+
+
+Error Detection
+			cifar10_allconv_baseline
+FPR95:			87.80
+FPR99:			79.95
+AUROC:			97.77
+AUPR:			26.04
+Configuration: MNIST-FashionMNIST_Balanced_256
+
+MNIST-FashionMNIST Detection
+
+[-0.99999976 -0.99999905 -0.9996823 ] [-0.20627065 -0.11189128 -0.14527401]
+				cifar10_allconv_baseline
+  TPR95 TPR99 AUROC AUPR
+100.00 & 99.98 & 100.00 & 100.00
+0.00 & 0.00 & 0.00 & 0.00

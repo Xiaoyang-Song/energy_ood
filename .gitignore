@@ -2,3 +2,5 @@
 
 __pycache__
 Datasets/
+CIFAR/snapshots/energy_ft/
+CIFAR/snapshots/oe_tune/
