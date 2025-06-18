@@ -12,3 +12,12 @@ Beginning Training
 
 /home/xysong/.conda/envs/OoD/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:131: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
   warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+Epoch   1 | Time    23 | Train Loss 1.4037 | Test Loss 0.016 | Test Error 0.35
+Epoch   2 | Time    22 | Train Loss 1.2391 | Test Loss 0.016 | Test Error 0.36
+Epoch   3 | Time    22 | Train Loss 1.2025 | Test Loss 0.016 | Test Error 0.43
+Epoch   4 | Time    22 | Train Loss 1.1862 | Test Loss 0.017 | Test Error 0.42
+Epoch   5 | Time    22 | Train Loss 1.1765 | Test Loss 0.016 | Test Error 0.42
+Epoch   6 | Time    22 | Train Loss 1.1722 | Test Loss 0.016 | Test Error 0.39
+Epoch   7 | Time    22 | Train Loss 1.1697 | Test Loss 0.016 | Test Error 0.35
+Epoch   8 | Time    22 | Train Loss 1.1670 | Test Loss 0.016 | Test Error 0.39
+Epoch   9 | Time    22 | Train Loss 1.1637 | Test Loss 0.016 | Test Error 0.38

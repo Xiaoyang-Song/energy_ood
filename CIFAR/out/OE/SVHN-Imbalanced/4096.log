@@ -113,3 +113,29 @@ Epoch  95 | Time    10 | Train Loss 1.0844 | Test Loss 0.146 | Test Error 3.35
 Epoch  96 | Time    10 | Train Loss 1.0845 | Test Loss 0.146 | Test Error 3.34
 Epoch  97 | Time    10 | Train Loss 1.0832 | Test Loss 0.146 | Test Error 3.37
 Epoch  98 | Time    10 | Train Loss 1.0891 | Test Loss 0.147 | Test Error 3.35
+Epoch  99 | Time    10 | Train Loss 1.0802 | Test Loss 0.147 | Test Error 3.37
+Epoch 100 | Time    10 | Train Loss 1.0867 | Test Loss 0.147 | Test Error 3.35
+ic| len(dset): 73257
+ic| len(dset): 26032
+Namespace(dataset='SVHN', test_bs=200, num_to_avg=5, validate=False, use_xent=False, method_name='cifar10_allconv_baseline', layers=40, widen_factor=2, droprate=0.3, load='./snapshots', ngpu=1, prefetch=1, out_as_pos=True, score='MSP', T=1.0, noise=0, type='OE', ft_epochs=99, ft_n=4096, regime='Imbalanced')
+Using downloaded and verified file: ./Datasets/SVHN/train_32x32.mat
+Using downloaded and verified file: ./Datasets/SVHN/test_32x32.mat
+Model restored!
+Error Rate 3.35
+
+
+Error Detection
+			cifar10_allconv_baseline
+FPR95:			54.52
+FPR99:			19.48
+AUROC:			90.56
+AUPR:			35.65
+Configuration: SVHN_Imbalanced_4096
+
+SVHN Detection
+
+[-0.97548056 -0.9977976  -0.99799204] [-0.2350837  -0.93697315 -0.1662569 ]
+				cifar10_allconv_baseline
+  TPR95 TPR99 AUROC AUPR
+90.92 & 80.48 & 98.04 & 89.79
+0.00 & 0.00 & 0.00 & 0.00

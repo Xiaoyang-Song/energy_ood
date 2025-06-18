@@ -14,3 +14,26 @@ Beginning Training
 /home/xysong/.conda/envs/OoD/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:131: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
   warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
 Epoch   1 | Time    10 | Train Loss 2.8527 | Test Loss 0.577 | Test Error 6.86
+Epoch   2 | Time     9 | Train Loss 1.2388 | Test Loss 0.604 | Test Error 6.70
+Epoch   3 | Time     9 | Train Loss 1.1032 | Test Loss 0.624 | Test Error 6.74
+Epoch   4 | Time     9 | Train Loss 0.8846 | Test Loss 0.629 | Test Error 6.66
+Epoch   5 | Time     9 | Train Loss 0.8540 | Test Loss 0.640 | Test Error 6.60
+Epoch   6 | Time    12 | Train Loss 0.8518 | Test Loss 0.655 | Test Error 6.61
+Epoch   7 | Time     9 | Train Loss 0.7310 | Test Loss 0.664 | Test Error 6.61
+Epoch   8 | Time     9 | Train Loss 0.4988 | Test Loss 0.666 | Test Error 6.62
+Epoch   9 | Time     9 | Train Loss 0.5033 | Test Loss 0.664 | Test Error 6.51
+Epoch  10 | Time     9 | Train Loss 0.5282 | Test Loss 0.673 | Test Error 6.77
+Epoch  11 | Time     9 | Train Loss 0.5630 | Test Loss 0.691 | Test Error 6.89
+Epoch  12 | Time     9 | Train Loss 0.5162 | Test Loss 0.677 | Test Error 6.81
+Epoch  13 | Time     9 | Train Loss 0.4644 | Test Loss 0.680 | Test Error 6.85
+Epoch  14 | Time     9 | Train Loss 0.3611 | Test Loss 0.694 | Test Error 6.94
+Epoch  15 | Time     9 | Train Loss 0.3739 | Test Loss 0.697 | Test Error 6.80
+Epoch  16 | Time     9 | Train Loss 0.3160 | Test Loss 0.707 | Test Error 6.73
+Epoch  17 | Time     9 | Train Loss 0.1937 | Test Loss 0.696 | Test Error 6.90
+Epoch  18 | Time     9 | Train Loss 0.2264 | Test Loss 0.699 | Test Error 6.80
+Epoch  19 | Time     9 | Train Loss 0.2551 | Test Loss 0.705 | Test Error 6.90
+Epoch  20 | Time     9 | Train Loss 0.2489 | Test Loss 0.711 | Test Error 6.77
+Epoch  21 | Time     9 | Train Loss 0.1583 | Test Loss 0.706 | Test Error 6.70
+Epoch  22 | Time     9 | Train Loss 0.1639 | Test Loss 0.715 | Test Error 6.91
+Epoch  23 | Time     9 | Train Loss 0.1950 | Test Loss 0.724 | Test Error 6.90
+Epoch  24 | Time     9 | Train Loss 0.1368 | Test Loss 0.716 | Test Error 6.80

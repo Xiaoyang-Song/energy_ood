@@ -7,7 +7,7 @@
 # sbatch jobs/MNIST/512-energy.sh
 # sbatch jobs/MNIST/1024-energy.sh
 # sbatch jobs/MNIST/2048-energy.sh
-sbatch jobs/MNIST/4096-energy.sh
+# sbatch jobs/MNIST/4096-energy.sh
 
 
 # Generating job files...
@@ -20,7 +20,7 @@ sbatch jobs/MNIST/4096-energy.sh
 # sbatch jobs/FashionMNIST/512-energy.sh
 # sbatch jobs/FashionMNIST/1024-energy.sh
 # sbatch jobs/FashionMNIST/2048-energy.sh
-sbatch jobs/FashionMNIST/4096-energy.sh
+# sbatch jobs/FashionMNIST/4096-energy.sh
 
 
 # # Generating job files...
@@ -32,8 +32,8 @@ sbatch jobs/FashionMNIST/4096-energy.sh
 # sbatch jobs/MNIST-FashionMNIST/256-energy.sh
 # sbatch jobs/MNIST-FashionMNIST/512-energy.sh
 # sbatch jobs/MNIST-FashionMNIST/1024-energy.sh
-sbatch jobs/MNIST-FashionMNIST/2048-energy.sh
-sbatch jobs/MNIST-FashionMNIST/4096-energy.sh
+# sbatch jobs/MNIST-FashionMNIST/2048-energy.sh
+# sbatch jobs/MNIST-FashionMNIST/4096-energy.sh
 
 
 # Generating job files...
@@ -50,16 +50,16 @@ sbatch jobs/MNIST-FashionMNIST/4096-energy.sh
 
 
 # Generating job files...
-# sbatch jobs/CIFAR10-SVHN/8-energy.sh
-# sbatch jobs/CIFAR10-SVHN/16-energy.sh
-# sbatch jobs/CIFAR10-SVHN/32-energy.sh
-# sbatch jobs/CIFAR10-SVHN/64-energy.sh
-# sbatch jobs/CIFAR10-SVHN/128-energy.sh
-# sbatch jobs/CIFAR10-SVHN/256-energy.sh
-# sbatch jobs/CIFAR10-SVHN/512-energy.sh
-# sbatch jobs/CIFAR10-SVHN/1024-energy.sh
-# sbatch jobs/CIFAR10-SVHN/2048-energy.sh
-# sbatch jobs/CIFAR10-SVHN/4096-energy.sh
+sbatch jobs/CIFAR10-SVHN/8-energy.sh
+sbatch jobs/CIFAR10-SVHN/16-energy.sh
+sbatch jobs/CIFAR10-SVHN/32-energy.sh
+sbatch jobs/CIFAR10-SVHN/64-energy.sh
+sbatch jobs/CIFAR10-SVHN/128-energy.sh
+sbatch jobs/CIFAR10-SVHN/256-energy.sh
+sbatch jobs/CIFAR10-SVHN/512-energy.sh
+sbatch jobs/CIFAR10-SVHN/1024-energy.sh
+sbatch jobs/CIFAR10-SVHN/2048-energy.sh
+sbatch jobs/CIFAR10-SVHN/4096-energy.sh
 
 
 # Generating job files...
@@ -101,7 +101,7 @@ sbatch jobs/MNIST-FashionMNIST/4096-energy.sh
 # sbatch jobs/MNIST/512-OE.sh
 # sbatch jobs/MNIST/1024-OE.sh
 # sbatch jobs/MNIST/2048-OE.sh
-sbatch jobs/MNIST/4096-OE.sh
+# sbatch jobs/MNIST/4096-OE.sh
 
 
 # Generating job files...
@@ -114,7 +114,7 @@ sbatch jobs/MNIST/4096-OE.sh
 # sbatch jobs/FashionMNIST/512-OE.sh
 # sbatch jobs/FashionMNIST/1024-OE.sh
 # sbatch jobs/FashionMNIST/2048-OE.sh
-sbatch jobs/FashionMNIST/4096-OE.sh
+# sbatch jobs/FashionMNIST/4096-OE.sh
 
 
 # Generating job files...
@@ -126,8 +126,8 @@ sbatch jobs/FashionMNIST/4096-OE.sh
 # sbatch jobs/MNIST-FashionMNIST/256-OE.sh
 # sbatch jobs/MNIST-FashionMNIST/512-OE.sh
 # sbatch jobs/MNIST-FashionMNIST/1024-OE.sh
-sbatch jobs/MNIST-FashionMNIST/2048-OE.sh
-sbatch jobs/MNIST-FashionMNIST/4096-OE.sh
+# sbatch jobs/MNIST-FashionMNIST/2048-OE.sh
+# sbatch jobs/MNIST-FashionMNIST/4096-OE.sh
 
 
 # Generating job files...
@@ -144,16 +144,16 @@ sbatch jobs/MNIST-FashionMNIST/4096-OE.sh
 
 
 # Generating job files...
-# sbatch jobs/CIFAR10-SVHN/8-OE.sh
-# sbatch jobs/CIFAR10-SVHN/16-OE.sh
-# sbatch jobs/CIFAR10-SVHN/32-OE.sh
-# sbatch jobs/CIFAR10-SVHN/64-OE.sh
-# sbatch jobs/CIFAR10-SVHN/128-OE.sh
-# sbatch jobs/CIFAR10-SVHN/256-OE.sh
-# sbatch jobs/CIFAR10-SVHN/512-OE.sh
-# sbatch jobs/CIFAR10-SVHN/1024-OE.sh
-# sbatch jobs/CIFAR10-SVHN/2048-OE.sh
-# sbatch jobs/CIFAR10-SVHN/4096-OE.sh
+sbatch jobs/CIFAR10-SVHN/8-OE.sh
+sbatch jobs/CIFAR10-SVHN/16-OE.sh
+sbatch jobs/CIFAR10-SVHN/32-OE.sh
+sbatch jobs/CIFAR10-SVHN/64-OE.sh
+sbatch jobs/CIFAR10-SVHN/128-OE.sh
+sbatch jobs/CIFAR10-SVHN/256-OE.sh
+sbatch jobs/CIFAR10-SVHN/512-OE.sh
+sbatch jobs/CIFAR10-SVHN/1024-OE.sh
+sbatch jobs/CIFAR10-SVHN/2048-OE.sh
+sbatch jobs/CIFAR10-SVHN/4096-OE.sh
 
 
 # Generating job files...
